@@ -1,5 +1,12 @@
 # Smart Tomato Farm
 
+## Name branch
+<pre>
+dev/ui/{feature}
+dev/api/{feature}
+fix/ui/{feature}
+fix/api/{feature}
+</pre>
 
 ## How to run
 - step 1 : cd api (or ui) 

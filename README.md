@@ -48,7 +48,7 @@ server.js (entry point of program)
 
  ## Member in charge
  - Nguyễn Đại Tiến : manage (ui, api)
- - Nguyễn Trương Phước Thọ : light (ui, api)
- - Trịnh Khải Toàn : water (ui) , statistic (ui)
+ - Nguyễn Trương Phước Thọ : light (ui, api), water (ui)
+ - Trịnh Khải Toàn : header,sidebar (ui) , statistic (ui)
  - Đặng Hà Sang : database (deadline : 23h59 29/3/2024), water (api)
  - Nguyễn Quốc Việt : iot

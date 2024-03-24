@@ -1,18 +1,14 @@
 const express = require('express')
 const logger = require('morgan')
 const mongoose = require('mongoose')
+const connectDB = require('./app/config/db.config');
 
 const app = express()
 
 const manageRoute = require('./app/routes/manage.route')
 
-
-url = 'mongodb+srv://sangdanghs0812:3.14159@smart-tomato-db.pcuu6ow.mongodb.net/?retryWrites=true&w=majority&appName=Smart-tomato-DB'
-mongoose.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }).then(()=>{
-    console.log("Connect MongoDB successfully")    
-}).catch((err)=>{
-    console.error(err);
-})
+//connect mongodb cloud
+connectDB
 
 
 

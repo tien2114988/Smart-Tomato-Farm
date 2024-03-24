@@ -1,18 +1,15 @@
 const express = require('express')
 const logger = require('morgan')
 const mongoose = require('mongoose')
+const connectDB = require('./app/config/db.config');
 
 const app = express()
 
 const manageRoute = require('./app/routes/manage.route')
 
+//connect mongodb cloud
+connectDB
 
-// connect DB
-// mongoose.connect().then(()=>{
-//     console.log("Connect database successfully")
-// }).catch((err)=>{
-//     console.error(err)
-// })
 
 
 

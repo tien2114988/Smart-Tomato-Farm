@@ -10,7 +10,8 @@ fix/api/{feature}
 
 ## How to run
 - step 1 : cd api (or ui) 
-- step 2 : npm start
+- step 2 : npm install
+- step 3 : npm start
 
 ## File Structure
 ### UI

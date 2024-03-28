@@ -20,11 +20,22 @@ app.use(logger('dev'))
 
 
 // routes
-app.get('/',(req,res,next) => res.status(200).json(
-    {
-        message: 'Server is OK'
-    })
+app.get('/',(req,res,next)=>{
+        res.json({
+            'message' : 'server is running'
+        })
+    }
 )
+
+
+
+
+
+
+
+
+
+
 
 app.use('/manage',manageRoute)
 

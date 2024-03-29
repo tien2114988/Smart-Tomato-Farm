@@ -125,4 +125,20 @@ const AccountSchema = new mongoose.Schema({
   const Log = mongoose.model('Log', LogSchema);
   const Buzzer = mongoose.model('Buzzer', BuzzerSchema);
   const LCDScreen = mongoose.model('LCDScreen', LCDScreenSchema);
+
+  module.exports = {
+    Account,
+    TemperatureThreshold,
+    AirHumidityThreshold,
+    SoilMoistureThreshold,
+    LightThreshold,
+    Area,
+    WateringTimer,
+    WaterPump,
+    Light,
+    LightTimer,
+    Log,
+    Buzzer,
+    LCDScreen
+  }
   

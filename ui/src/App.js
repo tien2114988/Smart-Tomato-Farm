@@ -8,8 +8,8 @@ import Sidebar from './components/Sidebar/Sidebar';
 function App() {
   return (
     <div className='App'>
-      <Header/>
-      <Sidebar/>
+      {/* <Header/>
+      <Sidebar/> */}
       <Routes>
         <Route path='/' element={<Manage/>}/>
         <Route path='/manage' element={<Manage/>}/>

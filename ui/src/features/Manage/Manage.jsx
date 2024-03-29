@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import AreaList from './components/AreaList/AreaList';
 
 Manage.propTypes = {
     
@@ -7,8 +8,8 @@ Manage.propTypes = {
 
 function Manage(props) {
     return (
-        <div>
-            manage
+        <div className='manage'>
+            <AreaList />
         </div>
     );
 }

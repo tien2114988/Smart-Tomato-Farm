@@ -6,7 +6,7 @@ const manageController = require('../controllers/manage.controller')
 router.get('/',manageController.index)
 
 
-
+router.put('/updateConfig', manageController.updateConfig)
 
 
 module.exports = router

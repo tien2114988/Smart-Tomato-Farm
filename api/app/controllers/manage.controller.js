@@ -11,6 +11,12 @@ const index = (req,res)=>{
     });
 }
 
+const updateConfig = (req,res)=>{
+    res.json({
+        'message': 'update configuration'
+    })
+}
+
 module.exports = {
-    index
+    index, updateConfig
 }

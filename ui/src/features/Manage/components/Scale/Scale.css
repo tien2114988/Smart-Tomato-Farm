@@ -1,0 +1,36 @@
+
+
+.scale-measure{
+    height: 20px;
+    clear:both;
+}
+
+.scale-1{
+    background: linear-gradient(to right, red , yellow );
+    height: 20px;
+    clear:both;
+}
+
+.scale-2{
+    background: linear-gradient(to right, yellow , green );
+    height: 20px;
+    clear:both;
+}
+
+.scale-3{
+    background: green;
+    height: 20px;
+    clear:both;
+}
+
+.scale-4{
+    background: linear-gradient(to right, green , yellow );
+    height: 20px;
+    clear:both;
+}
+
+.scale-5{
+    background: linear-gradient(to right, yellow , red );
+    height: 20px;
+    clear:both;
+}

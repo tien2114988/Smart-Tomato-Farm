@@ -1,30 +1,21 @@
 import React from "react";
 import './App.css';
 import Manage from './features/Manage/Manage';
-import RootLayout from "./layouts/RootLayout";
-import {
-  Route, 
-  Routes,
-  RouterProvider,
-  createBrowserRouter,
-  BrowserRouter as Router,
-} from 'react-router-dom';
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <RootLayout />,
-    children: [
-      {
-        path: "/manage",
-        element: <Manage />,
-      }
-    ],
-  },
-]);
+import {Route, Routes} from 'react-router-dom';
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <div className='App'>
+      <Menu/>
+      
+      <Routes>
+        <Route path='/' element={<Manage/>}/>
+        <Route path='/manage' element={<Manage/>}/>
+      </Routes>
+      
+      <Footer/>
+    </div>
+  );
 }
 
 export default App;

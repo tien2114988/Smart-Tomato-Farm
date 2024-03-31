@@ -19,7 +19,6 @@ function Manage(props) {
                 <Route index element={<Tracking/>}/>
                 <Route path='/setting' element={<Setting/>}/>
             </Routes>
-            
         </div>
     );
 }

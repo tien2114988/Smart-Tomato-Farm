@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <Toolbar
       sx={{
-        backgroundColor: "#023556",
+        backgroundColor: "#42782f",
         // flexShrink: 0,
         color: "#fff",
         fontSize: "16px",

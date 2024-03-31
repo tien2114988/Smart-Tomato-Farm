@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./Light.css";
-import Bulb from "./components/Bulb";
 import SettingBulb from "./components/SettingBulb";
 import Area from "./pages/Area";
 

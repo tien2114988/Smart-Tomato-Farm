@@ -1,7 +1,5 @@
-import logo from "./logo.svg";
+
 import "./App.css";
-import Menu from "./components/Menu/Menu";
-import Footer from "./components/Footer/Footer";
 import Manage from "./features/Manage/Manage";
 import Light from "./features/Light/Light";
 import { Route, Routes } from "react-router-dom";

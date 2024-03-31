@@ -8,7 +8,7 @@ Manage.propTypes = {
 function Manage(props) {
     return (
         <div>
-            <i class="bi bi-0-circle"></i>
+            <text>abc123456789</text>
         </div>
     );
 }

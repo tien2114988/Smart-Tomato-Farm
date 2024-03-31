@@ -1,0 +1,33 @@
+.settingbulb{
+    position: absolute;
+    top: -500px;
+    /* right: -50%; */
+    right:0%;
+    width: 300px;
+    background: white;
+    transition: all 1s ease;
+    /* display: none; */
+    /* visibility: hidden; */
+}
+.settingbulb.active-setting{
+    top: 60px;
+    right: 0%;
+    
+    min-height: 100%;
+}
+.automod__close{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+/* ----------- */
+.settingbulb .automode button:hover{
+    opacity: 0.5;
+    background: green;
+    transition: all 0.5s ease;
+    color: white;
+}
+btn.automode__save{
+    border: none;
+    background-color: red;
+}

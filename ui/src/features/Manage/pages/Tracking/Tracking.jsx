@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import AreaList from '../../components/AreaList/AreaList';
+import AreaList from '../../components/Area/Area';
 import { NavLink } from 'react-router-dom';
 import { Link } from "react-router-dom";
-
+import { Alert } from '@mui/material';
 
 Tracking.propTypes = {
     
@@ -69,7 +69,8 @@ function Tracking(props) {
 
     return (
         <div className='container'>
-            <AreaList areaList={areaList}></AreaList>
+            <Alert className='m-3' severity="warning">Cảnh báo : Nhiệt độ thấp</Alert>
+            <AreaList page='tracking' areaList={areaList}></AreaList>
             <div className='d-flex flex-row-reverse my-5'>
                 <Link to='/setting' type="button" className="btn btn-primary justify-content-end">Thiết lập</Link>
             </div>

@@ -14,12 +14,7 @@ function Setup(props) {
     const [val3, setVal3] = useState(10);
     const [val4, setVal4] = useState(15);
 
-    var invalidVal1 = '';
-    if(val1==''){
-        invalidVal1 = 'Giá trị phải là số'
-    }else if(val1 >= val2){
-        invalidVal1 = 'Giá trị bé hơn giá trị mức 2'
-    }
+  
     
     return (
         <div className='m-4'>
@@ -29,21 +24,21 @@ function Setup(props) {
                     setVal1(e.target.val1)
                 }}/>
                 <label for="level1">Mức 1</label>
-                <div className={`${invalidVal1 == '' ? '' :  'd-none'} text-danger`}>* Giá trị vượt mức phải lớn hơn 0</div>
+                <div className='d-none  text-danger'>* Giá trị vượt mức phải lớn hơn 0</div>
             </div>
             <div className="form-floating mb-3">
                 <input type="number" className="form-control" id="level2" value={val2} disabled={disInput} onChange={e=>{
                     setVal2(e.target.val2)
                 }}/>
                 <label for="level2">Mức 2</label>
-                <div className=' text-danger'>* Giá trị vượt mức phải lớn hơn 0</div>
+                <div className='d-none text-danger'>* Giá trị vượt mức phải lớn hơn 0</div>
             </div>
             <div className="form-floating mb-3">
                 <input type="number" className="form-control" id="level3" value={val3} disabled={disInput} onChange={e=>{
                     setVal3(e.target.val3)
                 }}/>
                 <label for="level3">Mức 3</label>
-                <div className=' text-danger'>* Giá trị vượt mức phải lớn hơn 0</div>
+                <div className='d-none text-danger'>* Giá trị vượt mức phải lớn hơn 0</div>
             </div>
             <div className="form-floating mb-3">
                 <input type="number" className="form-control" id="level4" value={val4} disabled={disInput} onChange={e=>{

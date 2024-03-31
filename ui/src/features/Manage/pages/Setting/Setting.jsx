@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import AreaList from '../../components/AreaList/AreaList';
+import AreaList from '../../components/Area/Area';
 import { NavLink } from 'react-router-dom';
 import { Link } from "react-router-dom";
 
@@ -65,9 +65,9 @@ function Setting(props) {
 
     return (
         <div className='container'>
-            <AreaList areaList={areaList}></AreaList>
+            <AreaList page='setting' areaList={areaList}></AreaList>
             <div className='d-flex flex-row-reverse my-5'>
-                <Link to='/' type="button" className="btn btn-primary justify-content-end">Lưu</Link>
+                <Link to='/' type="button" className="btn btn-secondary justify-content-end">Thoát</Link>
             </div>
             
         </div>

@@ -6,6 +6,9 @@ import Manage from './features/Manage/Manage';
 import {Route, Routes} from 'react-router-dom';
 import { useEffect } from 'react';
 import deviceApi from './api/deviceApi';
+import SettingModal from './features/Manage/components/SettingModal/SettingModal';
+
+
 
 
 function App() {
@@ -21,11 +24,13 @@ function App() {
   return (
     <div className='App'>
       {/* <Menu/> */}
+
+      <SettingModal display='block' />
       
-      <Routes>
+      {/* <Routes>
         <Route path='/*' element={<Manage/>}/>
         <Route path='/manage/*' element={<Manage/>}/>
-      </Routes>
+      </Routes> */}
       
       {/* <Footer/> */}
     </div>

@@ -11,8 +11,10 @@ function AreaList({areaList}) {
 
 
     return (
-        <div className='area-list container'>
-            {areaList.map(x=><Area area={x} />)}
+        <div className='area-list'>
+            {areaList.map(x=>
+            <div><Area area={x}/></div>
+            )}
         </div>
     );
 }

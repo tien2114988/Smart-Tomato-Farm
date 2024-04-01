@@ -41,8 +41,6 @@ connectDB = mongoose.connect(url,{ dbname }).then(()=>{
             logs.create(data)
             .then(() => {
                 console.log('Data added from adafruit successfully');
-                // Đóng kết nối sau khi thêm dữ liệu
-                mongoose.disconnect();
             })
             .catch(err => console.error('Error adding data:', err));
          })    

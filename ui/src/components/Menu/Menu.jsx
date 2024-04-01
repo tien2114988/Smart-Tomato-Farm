@@ -186,7 +186,7 @@ export default function MenuBar(props) {
             {
               text: "Trang chủ",
               icon: <HomeIcon fontSize="medium" sx={{ color: "black" }} />,
-              to: "/main",
+              to: "/manage",
             },
             {
               text: "Tưới nước",

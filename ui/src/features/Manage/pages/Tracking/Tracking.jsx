@@ -72,7 +72,7 @@ function Tracking(props) {
             <Alert className='m-3' severity="warning">Cảnh báo : Nhiệt độ thấp</Alert>
             <AreaList page='tracking' areaList={areaList}></AreaList>
             <div className='d-flex flex-row-reverse my-5'>
-                <Link to='/setting' type="button" className="btn btn-primary justify-content-end">Thiết lập</Link>
+                <Link to='/manage/setting' type="button" className="btn btn-primary justify-content-end">Thiết lập</Link>
             </div>
             
         </div>

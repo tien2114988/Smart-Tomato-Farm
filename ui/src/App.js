@@ -1,37 +1,43 @@
 import React from "react";
-import './App.css';
-import Manage from './features/Manage/Manage';
-import {Route, Routes} from 'react-router-dom';
-import { useEffect } from 'react';
-import deviceApi from './api/deviceApi';
-import SettingModal from './features/Manage/components/SettingModal/SettingModal';
-import Menu from './components/Menu/Menu';
-import Footer from './components/Footer/Footer';
+import "./App.css";
+import Manage from "./features/Manage/Manage";
+import Light from "./features/Light/Light";
+import RootLayout from "./layouts/RootLayout";
+import Error from "./features/Error/Error";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import {
+  RouterProvider,
+  createBrowserRouter,
+  BrowserRouter as Router,
+} from "react-router-dom";
 
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <RootLayout />,
+    children: [
+      {
+        path: "manage/*",
+        element: <Manage />,
+      },
+      {
+        path: "light",
+        element: <Light />,
+      },
+      {
+        path: "*",
+        element: <Error />,
+      }
+    ],
+  },
+]);
 
 function App() {
-  useEffect(()=>{
-    const fetchDevices = async () =>{
-      const deviceList = await deviceApi.getAll();
-      console.log(deviceList);
-    }
-    fetchDevices();
-  },[]);
-
-
   return (
-    <div className='App'>
-      <Menu/>
-
-      
-      
-      <Routes>
-        <Route path='/*' element={<Manage/>}/>
-        <Route path='/manage/*' element={<Manage/>}/>
-      </Routes>
-      
-      <Footer/>
-    </div>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <RouterProvider router={router} />
+    </LocalizationProvider>
   );
 }
 

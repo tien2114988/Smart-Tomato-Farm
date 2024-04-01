@@ -1,49 +1,43 @@
-
+import React from "react";
 import "./App.css";
 import Manage from "./features/Manage/Manage";
 import Light from "./features/Light/Light";
-import { Route, Routes } from "react-router-dom";
-import Layout from "./components/Layout/Layout";
+import RootLayout from "./layouts/RootLayout";
 import Error from "./features/Error/Error";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import {
+  RouterProvider,
+  createBrowserRouter,
+  BrowserRouter as Router,
+} from "react-router-dom";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <RootLayout />,
+    children: [
+      {
+        path: "/manage",
+        element: <Manage />,
+      },
+      {
+        path: "/light",
+        element: <Light />,
+      },
+      {
+        path: "*",
+        element: <Error/>
+      }
+    ],
+  },
+]);
 
 function App() {
   return (
-    <div className="App">
-      {/* <Menu/> */}
-
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Layout>
-                <Manage />
-              </Layout>
-            }
-          />
-          <Route
-            path="/light"
-            element={
-              <Layout>
-                <Light />
-              </Layout>
-            }
-          />
-          <Route
-            path="*"
-            element={
-              <Layout>
-                <Error />
-              </Layout>
-            }
-          />
-        </Routes>
-      </LocalizationProvider>
-
-      {/* <Footer /> */}
-    </div>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <RouterProvider router={router} />
+    </LocalizationProvider>
   );
 }
 

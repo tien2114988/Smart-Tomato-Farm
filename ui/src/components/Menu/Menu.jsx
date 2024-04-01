@@ -31,7 +31,7 @@ import * as React from "react";
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
-  backgroundColor: "#01121E",
+  backgroundColor: "#A2D690",
   width: drawerWidth,
   transition: theme.transitions.create("width", {
     easing: theme.transitions.easing.sharp,
@@ -41,7 +41,7 @@ const openedMixin = (theme) => ({
 });
 
 const closedMixin = (theme) => ({
-  backgroundColor: "#01121E",
+  backgroundColor: "#A2D690",
   transition: theme.transitions.create("width", {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -113,7 +113,7 @@ export default function MenuBar(props) {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open} sx={{ backgroundColor: "#023556" }}>
+      <AppBar position="fixed" open={open} sx={{ backgroundColor: "#42782f" }}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -177,7 +177,7 @@ export default function MenuBar(props) {
         <Divider sx={{ backgroundColor: "#455a64" }} />
         <List
           sx={{
-            color: "white",
+            color: "black",
             paddingTop: 0,
             paddingBottom: 0,
           }}
@@ -185,27 +185,27 @@ export default function MenuBar(props) {
           {[
             {
               text: "Trang chủ",
-              icon: <HomeIcon fontSize="medium" sx={{ color: "white" }} />,
+              icon: <HomeIcon fontSize="medium" sx={{ color: "black" }} />,
               to: "/main",
             },
             {
               text: "Tưới nước",
-              icon: <WaterDropIcon fontSize="medium" sx={{ color: "white" }} />,
+              icon: <WaterDropIcon fontSize="medium" sx={{ color: "black" }} />,
               to: "/water",
             },
             {
               text: "Ánh sáng",
-              icon: <LightbulbIcon fontSize="medium" sx={{ color: "white" }} />,
+              icon: <LightbulbIcon fontSize="medium" sx={{ color: "black" }} />,
               to: "/light",
             },
             {
                 text: "Thống kê",
-                icon: <EqualizerIcon fontSize="medium" sx={{ color: "white" }} />,
+                icon: <EqualizerIcon fontSize="medium" sx={{ color: "black" }} />,
                 to: "/static",
             },
             {
                 text: "Đăng xuất",
-                icon: <LogoutIcon fontSize="medium" sx={{ color: "white" }} />,
+                icon: <LogoutIcon fontSize="medium" sx={{ color: "black" }} />,
                 to: "/#",
             },
           ].map((item, index) => (

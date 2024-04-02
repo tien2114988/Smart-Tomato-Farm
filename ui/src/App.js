@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 import Manage from "./features/Manage/Manage";
 import Light from "./features/Light/Light";
+import Water from "./features/Water/Water";
 import RootLayout from "./layouts/RootLayout";
 import Error from "./features/Error/Error";
 import { LocalizationProvider } from "@mui/x-date-pickers";
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: "/light",
         element: <Light />,
+      },
+      {
+        path: "/water",
+        element: <Water/>
       },
       {
         path: "*",

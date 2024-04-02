@@ -17,6 +17,11 @@ fix/api/{feature}
 ### UI
 <pre>
 src 
+|__api
+   |__adafruit.js
+   |__mongo.js
+   |__deviceApi.js
+   |__areApi.js
 |__components (shared components)
    |__Header 
       |__Header.jsx

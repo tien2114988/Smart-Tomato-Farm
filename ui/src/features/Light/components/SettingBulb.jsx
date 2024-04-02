@@ -6,11 +6,13 @@ import { useState } from "react";
 import FormTimer from "./FormTimer";
 import FormSensor from "./FormSensor";
 const SettingBulb = ({ setting, handleSetting }) => {
-  console.log(setting);
+  // console.log(setting);
   const lux = 10000;
   const [autoMode, setAutoMode] = useState(true);
   const [timer, setTimer] = useState(false);
   const [sensor, setSensor] = useState(false);
+  const [loading, setLoading] = useState(true);
+  
   const handleClick = (isTimer) => {
     if (isTimer) {
       setTimer(true);

@@ -1,8 +1,22 @@
 import React, { useState } from "react";
 import "./Bulb.css";
 import Switch from "react-switch";
-const Bulb = ({ name, state }) => {
-  const [lighten, setLighten] = useState(state);
+import { useEffect } from "react";
+import axios from "axios";
+const Bulb = ({ bulb_id, name, status }) => {
+  const [lighten, setLighten] = useState(status);
+  const ChangeLight = async () => {
+    setLighten(!lighten);
+
+    await axios
+      .put("http://localhost:3001/api/light/bulbs/", { bulb_id: bulb_id })
+      .then((res) => {
+        
+      })
+      .catch((err) => console.log(err));
+  };
+  // console.log(bulb_id);
+
   return (
     <>
       <div
@@ -18,12 +32,7 @@ const Bulb = ({ name, state }) => {
             <i class="bi bi-lightbulb-off"></i>
           )}
         </div>
-        <Switch
-          onChange={() => {
-            setLighten(!lighten);
-          }}
-          checked={lighten}
-        />
+        <Switch onChange={ChangeLight} checked={lighten} />
       </div>
     </>
   );

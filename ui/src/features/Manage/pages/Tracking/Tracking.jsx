@@ -32,6 +32,7 @@ function convertThreshold(threshold){
 }
 
 
+
 function Tracking(props) {
     const [areas, setAreas] = useState([]);
     const [alert, setAlert] = useState({
@@ -105,90 +106,85 @@ function Tracking(props) {
     lightThreshold = convertThreshold(lightThreshold);
 
     
+    const fetchDevices = async()=>{
+        var datas = await deviceApi.getAll();
+        
+        datas = datas.map((cur)=> {
+            if(cur.name=='data_doamDat'){
+                cur.displayName = 'Độ ẩm không khí';
+                cur.icon = 'bi bi-droplet';
+                cur.status = calculateStatus(cur.last_value, airThreshold[1]);
+                cur.unit = '%';
+            }else if(cur.name=='data_nhietdo'){
+                cur.displayName = 'Nhiệt độ';
+                cur.icon = 'bi bi-thermometer-half';
+                cur.status = calculateStatus(cur.last_value, tempThreshold[1]);
+                cur.unit = '°C';
+            }else if(cur.name=='data_doamKK'){
+                cur.displayName = 'Cường độ ánh sáng';
+                cur.icon = 'bi bi-brightness-high';
+                cur.status = calculateStatus(cur.last_value, lightThreshold[1]);
+                cur.unit = '%';
+            }else if(cur.name=='data_anhsang'){
+                cur.displayName = 'Độ ẩm đất';
+                cur.icon = 'bi bi-moisture';
+                cur.status = calculateStatus(cur.last_value, soilThreshold[1]);
+                cur.unit = '%';
+            }
+            
+            if(cur.status==-2){
+                setAlert({
+                    text: `Nguy hiểm : ${cur.displayName} đang ở mức rất thấp`,
+                    status: 'error'
+                })
+            }else if(cur.status==-1){
+                setAlert({
+                    text: `Cảnh báo : ${cur.displayName} đang ở mức thấp`,
+                    status: 'warning'
+                })
+            }else if(cur.status==0){
+                setAlert({
+                    text: `Mọi thông số đang ở trạng thái bình thường`,
+                    status: 'Success'
+                })
+            }else if(cur.status==1){
+                setAlert({
+                    text: `Cảnh báo : ${cur.displayName} đang ở mức cao`,
+                    status: 'warning'
+                })
+            }else if(cur.status==2){
+                setAlert({
+                    text: `Nguy hiểm : ${cur.displayName} đang ở mức rất cao`,
+                    status: 'error'
+                })
+            }
+
+            return cur;
+          });
+
+  
+          
+        setAreas(datas);
+        
+    }
 
     useEffect(()=>{
-        const fetchDevices = async()=>{
-            var datas = await deviceApi.getAll();
-
-            datas = datas.reduce((acc, cur) => {
-                const area_id = cur.group.key.slice(-1);
-                if(isNaN(area_id)){
-                    return acc;
-                }
-
-                if (!acc[area_id]) {
-                  acc[area_id] = [];
-                }
-
-                if(cur.name=='cambien_doam'){
-                    cur.displayName = 'Độ ẩm không khí';
-                    cur.icon = 'bi bi-droplet';
-                    cur.status = calculateStatus(cur.last_value, airThreshold[area_id]);
-                    cur.unit = '%';
-                }else if(cur.name=='cambien_nhietdo'){
-                    cur.displayName = 'Nhiệt độ';
-                    cur.icon = 'bi bi-thermometer-half';
-                    cur.status = calculateStatus(cur.last_value, tempThreshold[area_id]);
-                    cur.unit = '°C';
-                }else if(cur.name=='cambien_anhsang'){
-                    cur.displayName = 'Cường độ ánh sáng';
-                    cur.icon = 'bi bi-brightness-high';
-                    cur.status = calculateStatus(cur.last_value, lightThreshold[area_id]);
-                    cur.unit = '%';
-                }else if(cur.name=='doam_dat'){
-                    cur.displayName = 'Độ ẩm đất';
-                    cur.icon = 'bi bi-moisture';
-                    cur.status = calculateStatus(cur.last_value, soilThreshold[area_id]);
-                    cur.unit = '%';
-                }
-
-                if(cur.status==-2){
-                    setAlert({
-                        text: `Nguy hiểm : ${cur.displayName} đang ở mức rất thấp`,
-                        status: 'error'
-                    })
-                }else if(cur.status==-1){
-                    setAlert({
-                        text: `Cảnh báo : ${cur.displayName} đang ở mức thấp`,
-                        status: 'warning'
-                    })
-                }else if(cur.status==0){
-                    setAlert({
-                        text: `Mọi thông số đang ở trạng thái bình thường`,
-                        status: 'Success'
-                    })
-                }else if(cur.status==1){
-                    setAlert({
-                        text: `Cảnh báo : ${cur.displayName} đang ở mức cao`,
-                        status: 'warning'
-                    })
-                }else if(cur.status==2){
-                    setAlert({
-                        text: `Nguy hiểm : ${cur.displayName} đang ở mức rất cao`,
-                        status: 'error'
-                    })
-                }
-
-                acc[area_id].push(cur);
-                return acc;
-              }, []);
-
-
-      
-
-
-            setAreas(datas);
+        
+        let timerId = setInterval(()=>{
+            fetchDevices();
+        },2000)
+        
+        return ()=>{
+            clearInterval(timerId);
         }
-        fetchDevices();
-
     },[])
 
-
+    console.log(areas);
 
     return (
         <div className='container'>
             <Alert className='m-3' severity={`${alert.status}`}>{`${alert.text}`}</Alert>
-            {areas.map((area,idx)=><Area key={idx} page='tracking' name={`Khu vực ${idx}`} area={area}></Area>)}
+            <Area page='tracking' name='Khu vực 1' area={areas}></Area>
             <div className='d-flex flex-row-reverse my-5'>
                 <Link to='/manage/setting' type="button" className="btn btn-primary justify-content-end">Thiết lập</Link>
             </div>

@@ -64,6 +64,7 @@ const WaterPumpSchema = new mongoose.Schema({
 
 const LightSchema = new mongoose.Schema({
   name: { type: String },
+  ada_id: {type:String},
   status: { type: Boolean, default: false },
   area_id: {type:String},
   is_applied_timer: { type: Boolean, default: false },

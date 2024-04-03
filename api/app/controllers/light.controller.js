@@ -1,6 +1,6 @@
 const axios = require("axios");
 const adafruit_url = require("../config/adafruit.config");
-const feedKey = require("../config/adafruit.config")
+const feedKey = require("../config/adafruit.config");
 const { Area, Light } = require("../models/models");
 
 const index = (req, res) => {
@@ -73,6 +73,25 @@ const createBulbFromArea = async (req, res) => {
     console.log(error);
   }
 };
+// Update Bulb By Id
+const updateLightById = async (req, res) => {
+  try {
+    const bulb = await Light.findOneAndUpdate(
+      { _id: req.params.id },
+      { ada_id: req.body.ada_id }
+    );
+    if (!bulb) {
+      return res.status(404).json({
+        message: "Not found bulb",
+      });
+    }
+    return res.status(200).json({
+      bulb,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
 // Change State Bulb
 const getLightById = async (req, res) => {
   try {
@@ -93,12 +112,13 @@ const getLightById = async (req, res) => {
 const changeStateBulb = async (req, res) => {
   try {
     const bulb_id = req.body.bulb_id;
+    // const ada_id = req.body.ada_id
     const bulb = await Light.findById(bulb_id);
+    // console.log(req.bulb);
     bulb.status = !bulb.status;
+    // bulb.ada_id = ada_id
     bulb.save();
-    return res.status(200).json({
-      message: "Update the Bulb",
-    });
+    return res.status(200).json(bulb);
     // const saveBulb = Light.findOneAndUpdate({id:bulb_id, !status})
   } catch (error) {
     console.log(error);
@@ -116,4 +136,5 @@ module.exports = {
   changeStateBulb,
   getLightById,
   getBulbFromAda,
+  updateLightById,
 };

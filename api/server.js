@@ -1,73 +1,47 @@
-const express = require('express')
-const logger = require('morgan')
-const mongoose = require('mongoose')
-const connectDB = require('./app/config/db.config');
+const express = require("express");
+const logger = require("morgan");
+const mongoose = require("mongoose");
+const connectDB = require("./app/config/db.config");
+const bodyPraser = require('body-parser')
+const cors = require('cors')
+const app = express();
 
-const app = express()
-
-const manageRoute = require('./app/routes/manage.route')
-
+const manageRoute = require("./app/routes/manage.route");
+const lightRoute = require("./app/routes/light.route");
 //connect mongodb cloud
-connectDB
-
-
-
-
+connectDB;
 
 // middleware
-app.use(logger('dev'))
-
-
-
+app.use(logger("dev"));
+app.use(bodyPraser.json())
+app.use(cors())
 // routes
-app.get('/',(req,res,next)=>{
-        res.json({
-            'message' : 'server is running'
-        })
-    }
-)
 
-
-
-
-
-
-
-
-
-
-
-app.use('/manage',manageRoute)
-
-
+app.use("/api/manage", manageRoute);
+app.use("/api/light", lightRoute);
 
 //catch 404 error
-app.use((req,res,next)=>{
-    const err = new Error('Not Found')
-    err.status = 404
-    next(err)
-})
-
-
-
+app.use((req, res, next) => {
+  const err = new Error("Not Found");
+  err.status = 404;
+  next(err);
+});
 
 // error handler
-app.use(()=>{
-    const error = app.get('env') === 'development' ? err : {}
-    const status = err.status || 500
+app.use(() => {
+  const error = app.get("env") === "development" ? err : {};
+  const status = err.status || 500;
 
-    // response to client
-    return res.status(status).json({
-        error:{
-            message: error.message
-        }
-    })
-})
-
-
+  // response to client
+  return res.status(status).json({
+    error: {
+      message: error.message,
+    },
+  });
+});
 
 // start server
-const port = process.env.PORT || '3000'
+const port = process.env.PORT || "3001";
 app.listen(port, () => {
-    console.log(`App start to listen at http://localhost:${port}`);
-  });
+  console.log(`App start to listen at http://localhost:${port}`);
+});

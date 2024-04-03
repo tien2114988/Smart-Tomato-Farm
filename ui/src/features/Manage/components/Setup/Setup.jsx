@@ -1,19 +1,71 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import thresholdApi from '../../../../api/thresholdApi';
 
 
 Setup.propTypes = {
     
 };
 
+
+const updateApi = async(name, threshold, level1, level2, level3, level4)=>{
+    if(name=='Nhiệt độ'){
+        await thresholdApi.updateTempThreshold({
+            id: threshold._id,
+            level1: level1,
+            level2: level2,
+            level3: level3,
+            level4: level4,
+        })
+    }else if(name=='Độ ẩm đất'){
+        await thresholdApi.updateSoilThreshold({
+            id: threshold._id,
+            level1: level1,
+            level2: level2,
+            level3: level3,
+            level4: level4,
+        })
+    }else if(name=='Cường độ ánh sáng'){
+        await thresholdApi.updateLightThreshold({
+            id: threshold._id,
+            level1: level1,
+            level2: level2,
+            level3: level3,
+            level4: level4,
+        })
+    }else{
+        await thresholdApi.updateAirThreshold({
+            id: threshold._id,
+            level1: level1,
+            level2: level2,
+            level3: level3,
+            level4: level4,
+        })
+    }
+}
+
+
+
 function Setup(props) {
+    const threshold = props.threshold[0];
     const [disInput, setDisInput] = useState(true);
     const [curInput, setCurInput] = useState(1);
-    const [val1, setVal1] = useState(1);
-    const [val2, setVal2] = useState(5);
-    const [val3, setVal3] = useState(10);
-    const [val4, setVal4] = useState(15);
+    const [val1, setVal1] = useState(20);
+    const [val2, setVal2] = useState(50);
+    const [val3, setVal3] = useState(70);
+    const [val4, setVal4] = useState(90);
+
+
+    useEffect(() => {
+        // Set default values when threshold is available
+        if (props.threshold.length > 0) {
+            setVal1(threshold.level1 || 20);
+            setVal2(threshold.level2 || 50);
+            setVal3(threshold.level3 || 70);
+            setVal4(threshold.level4 || 90);
+        }
+    }, [threshold]);
 
     var invalid1 = '';
     var invalid2 = '';
@@ -45,7 +97,7 @@ function Setup(props) {
     
     return (
         <div className='m-4'>
-            <div className='fs-5 mb-3'>Nhiệt độ</div>
+            <div className='fs-5 mb-3'>{props.name}</div>
             <div className="form-floating mb-3">
                 <input type="number" className="form-control" id="level1" min='0' max={`${val2-1}`} value={val1} disabled={disInput || invalid2!='' && curInput==2 || invalid3!='' && curInput==3 || invalid4!='' && curInput==4} onChange={e=>{
                     const value = Number(e.target.value);
@@ -88,8 +140,10 @@ function Setup(props) {
                 }}>Điều chỉnh</button>
             </div>
             <div className={`d-flex flex-row-reverse mt-3 ${disInput ? 'd-none' : ''}`}>
-                <button type="button" className="btn btn-success justify-content-end" disabled={invalid1!='' || invalid2!='' || invalid3!='' || invalid4!='' } onClick={()=>{
+                <button type="button" className="btn btn-success justify-content-end" disabled={invalid1!='' || invalid2!='' || invalid3!='' || invalid4!='' } 
+                onClick={()=>{
                     setDisInput(!disInput);
+                    updateApi(props.name, threshold, val1, val2, val3, val4);
                 }}>Lưu</button>
                 <button type="button" className="btn btn-secondary me-3 justify-content-end" onClick={()=>{
                     setDisInput(!disInput);

@@ -6,7 +6,7 @@ Manage.propTypes = {};
 function Manage(props) {
     return (
         <div>
-            <text>abc123456789</text>
+            <text>Main</text>
         </div>
     );
 }

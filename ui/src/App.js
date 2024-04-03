@@ -1,5 +1,6 @@
 import React from "react";
 import "./App.css";
+import Login from "./features/Login/Login";
 import Manage from "./features/Manage/Manage";
 import Light from "./features/Light/Light";
 import Water from "./features/Water/Water";
@@ -19,7 +20,7 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     children: [
       {
-        path: "/manage",
+        path: "/",
         element: <Manage />,
       },
       {

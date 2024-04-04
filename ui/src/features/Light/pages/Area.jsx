@@ -1,10 +1,10 @@
 import "./Area.css";
 import Bulb from "../components/Bulb";
-import {useState,useEffect} from 'react'
-import axios from 'axios'
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const Area = ({ area }) => {
-  const [bulbs, setBulbs] = useState([])
+  const [bulbs, setBulbs] = useState([]);
   // console.log(area._id);
   // const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -18,10 +18,11 @@ const Area = ({ area }) => {
       .catch((err) => console.log(err));
   }, []);
   return (
-    <div className="content px-4 d-flex flex-row gap-5 flex-wrap justify-content-between">
+    <div className="content px-4 d-flex flex-row gap-2 flex-wrap justify-content-around" >
       {bulbs.map((bulb) => (
-        <Bulb key={bulb._id} bulb = {bulb} />
+        <Bulb key={bulb._id} bulb={bulb} />
       ))}
+      
     </div>
   );
 };

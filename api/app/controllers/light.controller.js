@@ -1,6 +1,5 @@
 const axios = require("axios");
-const adafruit_url = require("../config/adafruit.config");
-const feedKey = require("../config/adafruit.config");
+const adafruit = require("../config/adafruit.config");
 const { Area, Light } = require("../models/models");
 
 const index = (req, res) => {
@@ -112,12 +111,27 @@ const getLightById = async (req, res) => {
 const changeStateBulb = async (req, res) => {
   try {
     const bulb_id = req.body.bulb_id;
-    // const ada_id = req.body.ada_id
     const bulb = await Light.findById(bulb_id);
-    // console.log(req.bulb);
     bulb.status = !bulb.status;
-    // bulb.ada_id = ada_id
-    bulb.save();
+    data = bulb.status === true ? "1" : "0";
+    await axios
+      .post(
+        `https://io.adafruit.com/api/v2/viet_hcmut/feeds/${bulb.ada_id}/data/`,
+        { value: data },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "X-AIO-Key": adafruit.feedKey,
+          },
+        }
+      )
+      .then((res) => {
+        // console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    await bulb.save();
     return res.status(200).json(bulb);
     // const saveBulb = Light.findOneAndUpdate({id:bulb_id, !status})
   } catch (error) {
@@ -125,7 +139,19 @@ const changeStateBulb = async (req, res) => {
   }
 };
 
-//
+const getAutoTimeByLightId = async(req,res) => {
+
+}
+
+// set up auto for timer
+const changeAutoTimer = async (req, res) => {
+
+}
+// set up auto for sensor
+const changeAutoSensor = async (req,res) => {
+
+}
+
 
 module.exports = {
   index,
@@ -137,4 +163,7 @@ module.exports = {
   getLightById,
   getBulbFromAda,
   updateLightById,
+  changeAutoSensor,
+  changeAutoTimer,
+  getAutoTimeByLightId,
 };

@@ -3,6 +3,8 @@ const router = express.Router();
 
 const manageController = require('../controllers/manage.controller');
 
+// router.post('/buzzer', manageController.triggerBuzzer);
+
 router.post('/temp',manageController.createTempThreshold);
 router.get('/temp',manageController.readTempThreshold);
 router.delete('/temp/:id',manageController.deleteTempThreshold);

@@ -6,6 +6,8 @@ import Setting from './pages/Setting/Setting';
 import { Alert } from '@mui/material';
 import deviceApi from '../../api/deviceApi';
 import thresholdApi from '../../api/thresholdApi';
+import SettingToast from './components/SettingModal/SettingToast';
+import axios from 'axios';
 
 
 Manage.propTypes = {};
@@ -34,6 +36,63 @@ function calculateStatus(cur, threshold){
 
 
 function Manage(props) {
+    // deviceApi.triggerBuzzer({value:'0'});
+
+    const triggerBuzzer = async (data) => {
+          await axios
+            .post(
+              `https://io.adafruit.com/api/v2/viet_hcmut/feeds/khuvuc1.buzzer/data/`,
+              { value: data },
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                  "X-AIO-Key": "aio_qliQ64LT5XQdvAkPGdSm1Cqo0Xqz",
+                },
+              }
+            )
+            .then((res) => {
+              console.log(res);
+              // console.log(lighten);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+
+    }
+
+    const triggerLCD = async (data) => {
+        await axios
+          .post(
+            `https://io.adafruit.com/api/v2/viet_hcmut/feeds/khuvuc1.lcd/data/`,
+            { value:data },
+            {
+              headers: {
+                "Content-Type": "application/json",
+                "X-AIO-Key": "aio_qliQ64LT5XQdvAkPGdSm1Cqo0Xqz",
+              },
+            }
+          )
+          .then((res) => {
+            console.log(res);
+            // console.log(lighten);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+
+  }
+
+    //triggerBuzzer();
+    //triggerLCD('nguyen dai tien');
+    const fetchApi = async()=>{
+        deviceApi.triggerBuzzer({
+            value: '0',
+        });
+    }
+    
+        
+    
+
     const [areas, setAreas] = useState([]);
     const [temp, setTemp] = useState([]);
     const [air, setAir] = useState([]);
@@ -130,6 +189,7 @@ function Manage(props) {
 
     
     const fetchDevices = async()=>{
+        //await deviceApi.triggerBuzzer({value:'0'});
         var datas = await deviceApi.getAll();
         datas = datas.map((cur)=> {
             if(cur.name=='data_doamkk'){
@@ -201,13 +261,18 @@ function Manage(props) {
         
           
         setAreas(datas);
+
+        
     }
 
     useEffect(()=>{
         
         let timerId = setInterval(()=>{
-            
+            console.log(alert.status);
             fetchDevices();
+            
+            // triggerBuzzer();
+            // triggerLCD();
         },2000)
         
         return ()=>{
@@ -221,12 +286,15 @@ function Manage(props) {
     return (
         
         <div className='manage container'>
+            {/* <button onClick={()=>fetchApi()}>fetch api</button> */}
+            {/* <SettingToast></SettingToast> */}
             <Routes>
                 <Route index element={<Tracking area={areas} alert={alert}/>}/>
-                <Route path='setting' element={<Setting temp={temp} air={air} soil={soil} light={light}/>}/>
-            </Routes>
+                <Route path='setting' element={<Setting fetchTemp={fetchTemp} temp={temp} air={air} soil={soil} light={light}/>}/>
+            </Routes> 
         </div>
     );
+
 }
 
 export default Manage;

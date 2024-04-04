@@ -2,6 +2,23 @@ const axios = require('axios');
 const adafruit_url = require('../config/adafruit.config');
 const {TemperatureThreshold, SoilMoistureThreshold, AirHumidityThreshold, LightThreshold} = require('../models/models');
 
+// const triggerBuzzer = async(req,res)=>{
+//     try {
+//         const data = req.body.value;
+//         axios.post('https://io.adafruit.com/api/v2/viet_hcmut/feeds/khuvuc1.buzzer/data', {
+//             value: data,
+//           },{
+//             'Content-Type': 'aplication/json',
+//             'X-AIO-Key': 'aio_qliQ64LT5XQdvAkPGdSm1Cqo0Xqz',
+//           })
+//     } catch (error) {
+//         res.json({
+//             error: error
+//         })
+//     }
+// }
+
+
 const readTempThreshold = async (req,res)=>{
     try {
         const temp = await TemperatureThreshold.find({});
@@ -35,9 +52,9 @@ const createTempThreshold = async (req,res)=>{
 const updateTempThreshold = async(req,res)=>{
     try {
         const id = req.params.id;
-        const level1 = req.body.leve1;
+        const level1 = req.body.level1;
         const level2 = req.body.level2;
-        const level3 = req.body.leve3;
+        const level3 = req.body.level3;
         const level4 = req.body.level4;
         const area_id = req.body.area_id;
 
@@ -106,9 +123,9 @@ const createAirThreshold = async (req,res)=>{
 const updateAirThreshold = async(req,res)=>{
     try {
         const id = req.params.id;
-        const level1 = req.body.leve1;
+        const level1 = req.body.level1;
         const level2 = req.body.level2;
-        const level3 = req.body.leve3;
+        const level3 = req.body.level3;
         const level4 = req.body.level4;
         const area_id = req.body.area_id;
 
@@ -177,9 +194,9 @@ const createSoilThreshold = async (req,res)=>{
 const updateSoilThreshold = async(req,res)=>{
     try {
         const id = req.params.id;
-        const level1 = req.body.leve1;
+        const level1 = req.body.level1;
         const level2 = req.body.level2;
-        const level3 = req.body.leve3;
+        const level3 = req.body.level3;
         const level4 = req.body.level4;
         const area_id = req.body.area_id;
 
@@ -248,7 +265,7 @@ const createLightThreshold = async (req,res)=>{
 const updateLightThreshold = async(req,res)=>{
     try {
         const id = req.params.id;
-        const level1 = req.body.leve1;
+        const level1 = req.body.level1;
         const level2 = req.body.level2;
         const level3 = req.body.level3;
         const level4 = req.body.level4;
@@ -289,5 +306,6 @@ module.exports = {
     readTempThreshold, createTempThreshold, deleteTempThreshold, updateTempThreshold, 
     readAirThreshold, createAirThreshold, deleteAirThreshold, updateAirThreshold,
     readSoilThreshold, createSoilThreshold, deleteSoilThreshold, updateSoilThreshold,
-    readLightThreshold, createLightThreshold, deleteLightThreshold, updateLightThreshold
+    readLightThreshold, createLightThreshold, deleteLightThreshold, updateLightThreshold,
+    
 }

@@ -9,8 +9,9 @@ const url = `https://io.adafruit.com/api/v2/${username}/feeds`;
 
 const adafruit = axios.create({
     baseURL: url,
-    Headers: {
+    headers:{
         'Content-Type': 'aplication/json',
+        'X-AIO-Key': 'aio_qliQ64LT5XQdvAkPGdSm1Cqo0Xqz',
     }
 });
 

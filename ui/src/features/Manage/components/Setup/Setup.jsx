@@ -56,6 +56,8 @@ function Setup(props) {
     const [val3, setVal3] = useState(70);
     const [val4, setVal4] = useState(90);
 
+    
+
 
     useEffect(() => {
         // Set default values when threshold is available
@@ -141,14 +143,24 @@ function Setup(props) {
             </div>
             <div className={`d-flex flex-row-reverse mt-3 ${disInput ? 'd-none' : ''}`}>
                 <button type="button" className="btn btn-success justify-content-end" disabled={invalid1!='' || invalid2!='' || invalid3!='' || invalid4!='' } 
-                onClick={()=>{
+                onClick={async ()=>{
                     setDisInput(!disInput);
-                    updateApi(props.name, threshold, val1, val2, val3, val4);
+                    await updateApi(props.name, threshold, val1, val2, val3, val4);
+                    props.setShow({
+                        status: true,
+                        name: props.name
+                    });
+                    props.fetchTemp();
                 }}>Lưu</button>
                 <button type="button" className="btn btn-secondary me-3 justify-content-end" onClick={()=>{
                     setDisInput(!disInput);
+                    props.setShow({
+                        status: true,
+                        name: 'huy'
+                    });
                 }}>Hủy</button>
             </div>
+            
         </div>
     );
 }

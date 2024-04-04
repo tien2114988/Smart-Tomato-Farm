@@ -19,16 +19,16 @@ function Area(props) {
                     </div>) : 
                 <div className='row'>
                     <div className='col-xs-3 col-md-5 col-lg'>
-                        <Setup name='Nhiệt độ' threshold={props.temp}/>
+                        <Setup fetchTemp={props.fetchTemp} setShow={props.setShow} name='Nhiệt độ' threshold={props.temp}/>
                     </div>
                     <div className='col-xs-3 col-md-5 col-lg'>
-                        <Setup name='Độ ẩm không khí' threshold={props.air}/>
+                        <Setup fetchTemp={props.fetchTemp} setShow={props.setShow} name='Độ ẩm không khí' threshold={props.air}/>
                     </div>
                     <div className='col-xs-3 col-md-5 col-lg'>
-                        <Setup name='Độ ẩm đất' threshold={props.soil}/>
+                        <Setup fetchTemp={props.fetchTemp} setShow={props.setShow} name='Độ ẩm đất' threshold={props.soil}/>
                     </div>
                     <div className='col-xs-3 col-md-5 col-lg'>
-                        <Setup name='Cường độ ánh sáng' threshold={props.light}/>
+                        <Setup fetchTemp={props.fetchTemp} setShow={props.setShow} name='Cường độ ánh sáng' threshold={props.light}/>
                     </div>
                 </div>
             }

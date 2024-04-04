@@ -1,25 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./Light.css";
-import SettingBulb from "./components/SettingBulb";
 import Area from "./pages/Area";
-import getAllArea from "../../api/areaApi";
 import axios from "axios";
 
-// const areas = [
-//   {
-//     id: 1,
-//     name: "Khu A",
-//   },
-//   {
-//     id: 2,
-//     name: "Khu B",
-//   },
-// ];
-// console.log(typeof(areas));
 const Light = () => {
   const [areas, setAreas] = useState([]);
   const [chooseArea, setChooseArea] = useState(null);
-  const [setting, setSetting] = useState(false);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     axios
@@ -61,27 +47,9 @@ const Light = () => {
               {area.name}
             </div>
           ))}
-          {/* <div className={`area h4 m-0 px-4 py-2 ${areaA ? "active" : ""}`}>
-            Khu A
-          </div>
-          <div className={`area h4 m-0 px-4 py-2 ${areaA ? "" : "active"}`}>
-            Khu B
-          </div> */}
-        </div>
-        <div className="setting">
-          <button
-            className="btn-setting h4 px-2 m-0"
-            onClick={() => setSetting(!setting)}
-          >
-            <i class="bi bi-gear w-100"></i>
-          </button>
         </div>
       </div>
       <Area area={chooseArea} key={chooseArea._id} />
-      <SettingBulb
-        setting={setting}
-        handleSetting={() => setSetting(!setting)}
-      />
     </div>
   );
 };

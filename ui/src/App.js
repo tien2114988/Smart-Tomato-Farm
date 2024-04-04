@@ -20,11 +20,11 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     children: [
       {
-        path: "/",
+        path: "manage/*",
         element: <Manage />,
       },
       {
-        path: "/light",
+        path: "light",
         element: <Light />,
       },
       {
@@ -33,7 +33,7 @@ const router = createBrowserRouter([
       },
       {
         path: "*",
-        element: <Error/>
+        element: <Error />,
       }
     ],
   },

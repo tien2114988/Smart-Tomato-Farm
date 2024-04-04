@@ -17,7 +17,7 @@ app.use(bodyPraser.json())
 app.use(cors())
 // routes
 
-app.use("/manage", manageRoute);
+app.use("/api/manage", manageRoute);
 app.use("/api/light", lightRoute);
 
 //catch 404 error

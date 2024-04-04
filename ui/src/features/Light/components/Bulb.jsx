@@ -1,21 +1,24 @@
 import React, { useState } from "react";
 import "./Bulb.css";
 import Switch from "react-switch";
-import { useEffect } from "react";
 import axios from "axios";
-const Bulb = ({ bulb_id, name, status }) => {
-  const [lighten, setLighten] = useState(status);
+import SettingBulb from "./SettingBulb";
+const Bulb = ({ bulb }) => {
+  const [lighten, setLighten] = useState(bulb.status);
+
+  const [setting, setSetting] = useState(false);
   const ChangeLight = async () => {
     setLighten(!lighten);
-
-    await axios
-      .put("http://localhost:3001/api/light/bulbs/", { bulb_id: bulb_id })
-      .then((res) => {
-        
-      })
-      .catch((err) => console.log(err));
+    try {
+      await axios
+        .put("http://localhost:3001/api/light/bulbs/", { bulb_id: bulb._id })
+        .then((res) => {})
+        .catch((err) => console.log(err));
+    } catch (error) {
+      console.log(error);
+    }
   };
-  // console.log(bulb_id);
+  // console.log(setting);
 
   return (
     <>
@@ -24,7 +27,21 @@ const Bulb = ({ bulb_id, name, status }) => {
           lighten ? "" : "disable"
         }`}
       >
-        <div className="p-0 h4">{name}</div>
+        <div className="d-flex flex-row align-items-center justify-content-around gap-5">
+          <div className="m-0 h4">{bulb.name}</div>
+          <div className="setting">
+            <button
+              className="btn-setting h4 px-2 m-0"
+              onClick={() => {
+                if (lighten) {
+                  setSetting(!setting);
+                }
+              }}
+            >
+              <i class="bi bi-gear w-100"></i>
+            </button>
+          </div>
+        </div>
         <div className="bulb_state">
           {lighten ? (
             <i class="bi bi-lightbulb"></i>
@@ -33,6 +50,11 @@ const Bulb = ({ bulb_id, name, status }) => {
           )}
         </div>
         <Switch onChange={ChangeLight} checked={lighten} />
+        <SettingBulb
+          bulb={bulb}
+          setting={setting}
+          handleSetting={() => setSetting(!setting)}
+        />
       </div>
     </>
   );

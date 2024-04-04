@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./PumpWater.css";
 import Switch from "react-switch";
-import PumpAdjust from "./PumpAdjust";
+
 const PumpWater = ({ name, state }) => {
   const [watered, setWatered] = useState(state);
   return (
@@ -30,7 +30,6 @@ const PumpWater = ({ name, state }) => {
             checked={watered}
           />
         </div>
-        <div className="flex-grow-1">{watered ? <PumpAdjust /> : <></>}</div>
       </div>
     </>
   );

@@ -7,7 +7,7 @@ import FormTimer from "./FormTimer";
 import FormSensor from "./FormSensor";
 const SettingWaterPump = ({ setting, handleSetting }) => {
   console.log(setting);
-  const lux = 60;
+  const mois = 60;
   const [autoMode, setAutoMode] = useState(true);
   const [timer, setTimer] = useState(false);
   const [sensor, setSensor] = useState(false);
@@ -44,7 +44,7 @@ const SettingWaterPump = ({ setting, handleSetting }) => {
           Theo Cảm biến
         </button>
         {timer ? <FormTimer /> : <></>}
-        {sensor ? <FormSensor props={lux} /> : <></>}
+        {sensor ? <FormSensor props={mois} /> : <></>}
       </div>
     </div>
   );

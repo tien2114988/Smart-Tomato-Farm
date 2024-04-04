@@ -206,7 +206,7 @@ export default function MenuBar(props) {
             {
                 text: "Đăng xuất",
                 icon: <LogoutIcon fontSize="medium" sx={{ color: "black" }} />,
-                to: "/#",
+                to: "/error",
             },
           ].map((item, index) => (
             <React.Fragment key={item.text}>

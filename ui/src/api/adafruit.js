@@ -1,11 +1,8 @@
-import axios from 'axios';
+import axios from "axios";
 
-
-const username = 'viet_hcmut';
+const username = "viet_hcmut";
 const url = `https://io.adafruit.com/api/v2/${username}/feeds`;
-
-
-
+const AIO_KEY = "aio_qliQ64LT5XQdvAkPGdSm1Cqo0Xqz";
 
 const adafruit = axios.create({
     baseURL: url,
@@ -15,29 +12,30 @@ const adafruit = axios.create({
     }
 });
 
-
-
 // Add a request interceptor
-adafruit.interceptors.request.use(function (config) {
+adafruit.interceptors.request.use(
+  function (config) {
     // Do something before request is sent
     return config;
-  }, function (error) {
+  },
+  function (error) {
     // Do something with request error
     return Promise.reject(error);
-  });
+  }
+);
 
 // Add a response interceptor
-adafruit.interceptors.response.use(function (response) {
+adafruit.interceptors.response.use(
+  function (response) {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
     return response.data;
-  }, function (error) {
+  },
+  function (error) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error
     return Promise.reject(error);
-  });
-
-
-
+  }
+);
 
 export default adafruit;

@@ -72,8 +72,8 @@ const LightSchema = new mongoose.Schema({
 });
 
 const LightTimerSchema = new mongoose.Schema({
-  on_time: String,
-  off_time: String,
+  on_time: Date,
+  off_time: Date,
   light_id: { type: String },
 });
 

@@ -12,27 +12,17 @@ function Measure(props) {
     var status = 'Bình thường';
     var bg = 'bg-success-subtle';
 
-    if(props.status==-2){
-        status = 'Rất thấp'
+    if(props.status==-1){
+        status = 'Thấp'
         text = 'text-danger';
         border = 'border-danger';
         bg = 'bg-danger-subtle';
-    }else if(props.status==-1){
-        status = 'Thấp'
-        text = 'text-warning';
-        border = 'border-warning';
-        bg = 'bg-warning-subtle';
     }else if(props.status==1){
         status = 'Cao'
-        text = 'text-warning';
-        border = 'border-warning';
-        bg = 'bg-warning-subtle';
-    } else if(props.status==2){
-        status = 'Rất cao'
         text = 'text-danger';
         border = 'border-danger';
         bg = 'bg-danger-subtle';
-    }
+    } 
 
     return (
         <div className={`measure ${bg} rounded-3 m-4 ${text} border ${border}`}>

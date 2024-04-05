@@ -6,11 +6,11 @@ const pumpswater = [
     name: "Máy bơm 1",
     state: true,
   },
-  // {
-  //   id: 2,
-  //   name: "Đèn 2",
-  //   state: false,
-  // },
+  {
+    id: 2,
+    name: "Máy bơm 2",
+    state: false,
+  },
   // {
   //   id: 3,
   //   name: "Đèn 3",

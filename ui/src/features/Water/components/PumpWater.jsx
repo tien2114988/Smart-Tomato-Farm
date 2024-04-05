@@ -7,10 +7,10 @@ const PumpWater = ({ name, state }) => {
   return (
     <>
       <div
-        className={`Bulb py-4 d-flex flex-row align-items-center w-75 px-4 gap-5 justify-contents-between `}
+        className={`Bulb border p-2 w-30`}
       >
         <div
-          className={`d-flex flex-column align-items-center flex-shrink-1 border rounded-3 py-2 px-5 ${
+          className={`d-flex flex-column align-items-center flex-shrink-1 border rounded-3 py-2 px-2 ${
             watered ? "" : "disable"
           }`}
         >

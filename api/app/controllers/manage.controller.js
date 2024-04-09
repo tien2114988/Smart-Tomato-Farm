@@ -35,8 +35,6 @@ const createTempThreshold = async (req,res)=>{
         const newTemp = new TemperatureThreshold();
         newTemp.level1 = req.body.level1;
         newTemp.level2 = req.body.level2;
-        newTemp.level3 = req.body.level3;
-        newTemp.level4 = req.body.level4;
         newTemp.area_id = req.body.area_id;
 
         await newTemp.save();
@@ -54,14 +52,12 @@ const updateTempThreshold = async(req,res)=>{
         const id = req.params.id;
         const level1 = req.body.level1;
         const level2 = req.body.level2;
-        const level3 = req.body.level3;
-        const level4 = req.body.level4;
         const area_id = req.body.area_id;
 
         const temp = await TemperatureThreshold.updateOne(
             { _id : id},
             {
-                $set: { level1: level1, level2: level2, level3: level3, level4: level4, area_id:area_id },
+                $set: { level1: level1, level2: level2, area_id:area_id },
             }
 
         );
@@ -106,8 +102,6 @@ const createAirThreshold = async (req,res)=>{
         const newTemp = new AirHumidityThreshold();
         newTemp.level1 = req.body.level1;
         newTemp.level2 = req.body.level2;
-        newTemp.level3 = req.body.level3;
-        newTemp.level4 = req.body.level4;
         newTemp.area_id = req.body.area_id;
 
         await newTemp.save();
@@ -125,14 +119,12 @@ const updateAirThreshold = async(req,res)=>{
         const id = req.params.id;
         const level1 = req.body.level1;
         const level2 = req.body.level2;
-        const level3 = req.body.level3;
-        const level4 = req.body.level4;
         const area_id = req.body.area_id;
 
         const temp = await AirHumidityThreshold.updateOne(
             { _id : id},
             {
-                $set: { level1: level1, level2: level2, level3: level3, level4: level4, area_id:area_id },
+                $set: { level1: level1, level2: level2, area_id:area_id },
             }
 
         );
@@ -177,8 +169,6 @@ const createSoilThreshold = async (req,res)=>{
         const newTemp = new SoilMoistureThreshold();
         newTemp.level1 = req.body.level1;
         newTemp.level2 = req.body.level2;
-        newTemp.level3 = req.body.level3;
-        newTemp.level4 = req.body.level4;
         newTemp.area_id = req.body.area_id;
 
         await newTemp.save();
@@ -196,14 +186,12 @@ const updateSoilThreshold = async(req,res)=>{
         const id = req.params.id;
         const level1 = req.body.level1;
         const level2 = req.body.level2;
-        const level3 = req.body.level3;
-        const level4 = req.body.level4;
         const area_id = req.body.area_id;
 
         const temp = await SoilMoistureThreshold.updateOne(
             { _id : id},
             {
-                $set: { level1: level1, level2: level2, level3: level3, level4: level4, area_id:area_id },
+                $set: { level1: level1, level2: level2, area_id:area_id },
             }
 
         );
@@ -248,8 +236,6 @@ const createLightThreshold = async (req,res)=>{
         const newTemp = new LightThreshold();
         newTemp.level1 = req.body.level1;
         newTemp.level2 = req.body.level2;
-        newTemp.level3 = req.body.level3;
-        newTemp.level4 = req.body.level4;
         newTemp.area_id = req.body.area_id;
 
         await newTemp.save();
@@ -267,14 +253,12 @@ const updateLightThreshold = async(req,res)=>{
         const id = req.params.id;
         const level1 = req.body.level1;
         const level2 = req.body.level2;
-        const level3 = req.body.level3;
-        const level4 = req.body.level4;
         const area_id = req.body.area_id;
 
         const temp = await LightThreshold.updateOne(
             { _id : id},
             {
-                $set: { level1: level1, level2: level2, level3: level3, level4: level4, area_id:area_id },
+                $set: { level1: level1, level2: level2, area_id:area_id },
             }
 
         );

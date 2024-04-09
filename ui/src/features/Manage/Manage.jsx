@@ -14,15 +14,11 @@ Manage.propTypes = {};
 
 function calculateStatus(cur, threshold){
     if(cur<threshold.level1){
-        return -2;
-    }else if(cur<threshold.level2){
         return -1;
-    }else if(cur<=threshold.level3){
+    }else if(cur>=threshold.level1 && cur<=threshold.level2){
         return 0;
-    }else if(cur<=threshold.level4){
-        return 1;
     }else{
-        return 2;
+        return 1;
     }
 }
 
@@ -50,13 +46,13 @@ function Manage(props) {
                 },
               }
             )
-            .then((res) => {
-              console.log(res);
-              // console.log(lighten);
-            })
-            .catch((err) => {
-              console.log(err);
-            });
+            // .then((res) => {
+            //   console.log(res);
+            //   // console.log(lighten);
+            // })
+            // .catch((err) => {
+            //   console.log(err);
+            // });
 
     }
 
@@ -72,23 +68,17 @@ function Manage(props) {
               },
             }
           )
-          .then((res) => {
-            console.log(res);
-            // console.log(lighten);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        //   .then((res) => {
+        //     console.log(res);
+        //     // console.log(lighten);
+        //   })
+        //   .catch((err) => {
+        //     console.log(err);
+        //   });
 
   }
 
-    //triggerBuzzer();
-    //triggerLCD('nguyen dai tien');
-    const fetchApi = async()=>{
-        deviceApi.triggerBuzzer({
-            value: '0',
-        });
-    }
+    
     
         
     
@@ -118,79 +108,29 @@ function Manage(props) {
     
 
     useEffect(()=>{
-        fetchTemp();
+        const fetchData = async () => {
+            try {
+                // Call fetchTemp and wait for it to complete
+                await fetchTemp();
+                // Now temp should be updated
+                console.log(temp);
+                // Once fetchTemp is complete, call fetchDevices
+                await fetchDevices();
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+    
+        // Call the fetchData function when the component mounts
+        fetchData();
     },[]);
     
 
-    // var tempThreshold = 
-    // [{
-    //     level1 : 1,
-    //     level2 : 50,
-    //     level3 : 60,
-    //     level4 : 80,
-    //     area_id : 1
-    // },{
-    //     level1 : 1,
-    //     level2 : 50,
-    //     level3 : 60,
-    //     level4 : 100,
-    //     area_id : 2
-    // }]
-
-    // var airThreshold = 
-    // [{
-    //     level1 : 1,
-    //     level2 : 40,
-    //     level3 : 60,
-    //     level4 : 80,
-    //     area_id : 1
-    // },{
-    //     level1 : 1,
-    //     level2 : 40,
-    //     level3 : 60,
-    //     level4 : 80,
-    //     area_id : 2
-    // }]
-
-    // var soilThreshold = 
-    // [{
-    //     level1 : 1,
-    //     level2 : 40,
-    //     level3 : 60,
-    //     level4 : 80,
-    //     area_id : 1
-    // },{
-    //     level1 : 1,
-    //     level2 : 40,
-    //     level3 : 60,
-    //     level4 : 80,
-    //     area_id : 2
-    // }]
-
-    // var lightThreshold = 
-    // [{
-    //     level1 : 1,
-    //     level2 : 40,
-    //     level3 : 60,
-    //     level4 : 80,
-    //     area_id : 1
-    // },{
-    //     level1 : 1,
-    //     level2 : 40,
-    //     level3 : 60,
-    //     level4 : 80,
-    //     area_id : 2
-    // }]
-
-    // tempThreshold = convertThreshold(tempThreshold);
-    // airThreshold = convertThreshold(airThreshold);
-    // soilThreshold = convertThreshold(soilThreshold);
-    // lightThreshold = convertThreshold(lightThreshold);
 
     
     const fetchDevices = async()=>{
-        //await deviceApi.triggerBuzzer({value:'0'});
         var datas = await deviceApi.getAll();
+        var buzzer, lcd;
         datas = datas.map((cur)=> {
             if(cur.name=='data_doamkk'){
                 cur.displayName = 'Độ ẩm không khí';
@@ -212,6 +152,10 @@ function Manage(props) {
                 cur.icon = 'bi bi-moisture';
                 cur.status = calculateStatus(cur.last_value, soil[0]);
                 cur.unit = '%';
+            }else if(cur.name=='buzzer'){
+                buzzer = cur.last_value;
+            }else if(cur.name=='LCD'){
+                lcd = cur.last_value;
             }
 
             status_list[`${cur.displayName}`] = cur.status;
@@ -230,34 +174,56 @@ function Manage(props) {
 
         const status = status_list[cur_key];
 
-        if(status == -2){
+
+        if(status == -1){
             setAlert({
                 status: 'error',
-                text: `Nguy hiểm: ${cur_key} đang ở mức rất thấp`
-            })
-        }else if(status == -1){
-            setAlert({
-                status: 'warning',
-                text: `Cảnh báo: ${cur_key} đang ở mức thấp`
+                text: `Nguy hiểm: ${cur_key} đang ở mức thấp`
             })
         }else if(status == 0){
             setAlert({
                 status: 'success',
                 text: `Mọi thông số ở mức bình thường`
             })
-        }else if(status == 1){
-            setAlert({
-                status: 'warning',
-                text: `Cảnh báo: ${cur_key} đang ở mức cao`
-            })
         }else{
             setAlert({
                 status: 'error',
-                text: `Nguy hiểm: ${cur_key} đang ở mức rất cao`
+                text: `Nguy hiểm: ${cur_key} đang ở mức cao`
             }) 
         }
+        // triggerBuzzer();
+        if(cur_key=='Cường độ ánh sáng'){
+            cur_key = 'Cuong do anh sang';
+        }else if(cur_key=='Nhiệt độ'){
+            cur_key = 'Nhiet do';
+        }else if(cur_key=='Độ ẩm đất'){
+            cur_key = 'Do am dat';
+        }else{
+            cur_key = 'Do am khong khi';
+        }
 
-    
+        var text;
+
+        if((status == -1 || status == 1) && buzzer == '0'){
+            triggerBuzzer('1');
+        }else if(status == 0 && buzzer == '1'){
+            triggerBuzzer('0');
+        }
+
+        if(status == -1){
+            var text = `${cur_key} dang o muc thap`;
+            if(text != lcd){
+                triggerLCD(text);
+            }
+        }else if(status == 1){
+            var text = `${cur_key} dang o muc cao`;
+            if(text != lcd){
+                triggerLCD(text);
+            }
+        }
+
+        
+
         
           
         setAreas(datas);
@@ -266,14 +232,9 @@ function Manage(props) {
     }
 
     useEffect(()=>{
-        
         let timerId = setInterval(()=>{
-            console.log(alert.status);
             fetchDevices();
-            
-            // triggerBuzzer();
-            // triggerLCD();
-        },2000)
+        },1000)
         
         return ()=>{
             clearInterval(timerId);

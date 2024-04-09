@@ -108,21 +108,21 @@ function Manage(props) {
     
 
     useEffect(()=>{
-        const fetchData = async () => {
-            try {
-                // Call fetchTemp and wait for it to complete
-                await fetchTemp();
-                // Now temp should be updated
-                console.log(temp);
-                // Once fetchTemp is complete, call fetchDevices
-                await fetchDevices();
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
+        // const fetchData = async () => {
+        //     try {
+        //         // Call fetchTemp and wait for it to complete
+        //         await fetchTemp();
+        //         // Now temp should be updated
+        //         console.log(temp);
+        //         // Once fetchTemp is complete, call fetchDevices
+        //         await fetchDevices();
+        //     } catch (error) {
+        //         console.error('Error fetching data:', error);
+        //     }
+        // };
     
         // Call the fetchData function when the component mounts
-        fetchData();
+        fetchTemp();
     },[]);
     
 

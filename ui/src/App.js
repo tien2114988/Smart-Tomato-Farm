@@ -25,7 +25,7 @@ const router = createBrowserRouter([
         element: <Manage />,
       },
       {
-        path: "light",
+        path: "/light",
         element: <Light />,
       },
       {

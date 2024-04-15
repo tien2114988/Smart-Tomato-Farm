@@ -20,12 +20,10 @@ function Setting({temp, air, soil, light, fetchTemp}) {
     return (
         <div className='container'>
             <SettingToast show={show} setShow={setShow} ></SettingToast>
-            <div className='row m-3'>
-                <div className='col-xs-3 col-md-4 col-lg text-danger'>Rất thấp : [0, mức 1) </div>
-                <div className='col-xs-3 col-md-4 col-lg text-warning'>Thấp : [mức 1, mức 2) </div>
-                <div className='col-xs-3 col-md-4 col-lg text-success'>Bình thường : [mức 2, mức 3] </div>
-                <div className='col-xs-3 col-md-4 col-lg text-warning'>Cao : (mức 3, mức 4] </div>
-                <div className='col-xs-3 col-md-4 col-lg text-danger'>Rất cao : (mức 4, 100] </div>
+            <div className='row m-3 mx-auto'>
+                <div className='col-xs-3 col-md-4 col-lg text-danger'>Thấp : [0, mức 1) </div>
+                <div className='col-xs-3 col-md-4 col-lg text-success'>Bình thường : [mức 1, mức 2] </div>
+                <div className='col-xs-3 col-md-4 col-lg text-danger'>Cao : (mức 2, 100] </div>
             </div>
             <Area setShow={setShow} page='setting' fetchTemp={fetchTemp}  temp={temp} air={air} soil={soil} light={light}></Area>
             <div className='d-flex flex-row-reverse my-5'>

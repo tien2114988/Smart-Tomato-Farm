@@ -78,6 +78,7 @@ const LightTimerSchema = new mongoose.Schema({
 });
 
 const LogSchema = new mongoose.Schema({
+  type: String,
   temperature: Number,
   air_humidity: Number,
   soil_moisture: Number,

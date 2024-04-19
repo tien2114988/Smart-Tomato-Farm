@@ -8,6 +8,7 @@ const app = express();
 
 const manageRoute = require("./app/routes/manage.route");
 const lightRoute = require("./app/routes/light.route");
+const analysisRoute = require("./app/routes/analysis.route");
 //connect mongodb cloud
 connectDB;
 
@@ -19,7 +20,7 @@ app.use(cors())
 
 app.use("/api/manage", manageRoute);
 app.use("/api/light", lightRoute);
-
+app.use("/api/analysis",analysisRoute);
 //catch 404 error
 app.use((req, res, next) => {
   const err = new Error("Not Found");

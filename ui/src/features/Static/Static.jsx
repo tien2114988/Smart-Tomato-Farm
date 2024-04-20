@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import LineChart from "./components/LineChart";
 import BarChart from "./components/BarChart";
+import PieChart from "./components/PieChart";
 //import { UserData } from "./Data";
 import "./Static.css";
 import axios from "axios";
@@ -64,9 +65,19 @@ function Static() {
   return (
     <div className="Light border p-2 w-100">
       {chartData ? (
+        <div>
         <div className="tabs w-50 h-auto d-flex gap-2 mb-5 justify-content-between align-items-center">
           <LineChart chartData={chartData} />
           <BarChart chartData={chartData} />
+          </div>
+          <div className="tabs w-50 h-auto d-flex gap-2 mb-5 justify-content-between align-items-center">
+            <PieChart chartData={chartData} />
+            <PieChart chartData={chartData} />
+          </div>
+          <div className="tabs w-50 h-auto d-flex gap-2 mb-5 justify-content-between align-items-center">
+            <PieChart chartData={chartData} />
+            <PieChart chartData={chartData} />
+          </div>
         </div>
       ) : (
         <p>Loading...</p>

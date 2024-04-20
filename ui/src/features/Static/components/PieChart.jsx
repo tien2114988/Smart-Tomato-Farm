@@ -1,9 +1,9 @@
 import React from "react";
-import { Line } from "react-chartjs-2";
+import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 
-function LineChart({ chartData, title }) {
-  return <Line data={chartData} options = {
+function PieChart({ chartData, title, width, height}) {
+  return <Pie data={chartData} options = {
     {
       plugins: {
         title: {
@@ -15,4 +15,4 @@ function LineChart({ chartData, title }) {
   } />;
 }
 
-export default LineChart;
+export default PieChart;

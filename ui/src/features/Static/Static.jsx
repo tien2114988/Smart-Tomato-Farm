@@ -41,7 +41,7 @@ function Static() {
               label: "temp Level",
               data: [
                 userData.filter(data => data.temperature < 40).length,
-                userData.filter(data => data.temperature >= 40 && data.light < 60).length,
+                userData.filter(data => data.temperature >= 40 && data.temperature < 60).length,
                 userData.filter(data => data.temperature >= 60).length
               ],
               backgroundColor: ['yellow', 'green', 'red'] // Màu tương ứng với các mức
@@ -52,10 +52,10 @@ function Static() {
           labels: ['low', 'medium', 'high'],
           datasets: [
             {
-              label: "Light Level",
+              label: "soil Level",
               data: [
                 userData.filter(data => data.soil_moisture < 60).length,
-                userData.filter(data => data.soil_moisture >= 60 && data.light < 80).length,
+                userData.filter(data => data.soil_moisture >= 60 && data.soil_moisture < 80).length,
                 userData.filter(data => data.soil_moisture >= 80).length
               ],
               backgroundColor: ['yellow', 'green', 'red'] // Màu tương ứng với các mức
@@ -66,10 +66,10 @@ function Static() {
           labels: ['low', 'medium', 'high'],
           datasets: [
             {
-              label: "Light Level",
+              label: "air Level",
               data: [
                 userData.filter(data => data.air_humidity < 50).length,
-                userData.filter(data => data.air_humidity >= 50 && data.light < 70).length,
+                userData.filter(data => data.air_humidity >= 50 && data.air_humidity < 70).length,
                 userData.filter(data => data.air_humidity >= 70).length
               ],
               backgroundColor: ['yellow', 'green', 'red'] // Màu tương ứng với các mức

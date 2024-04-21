@@ -1,33 +1,51 @@
-.settingbulb{
+.settingpump {
     position: absolute;
     top: -500px;
     /* right: -50%; */
-    right:0%;
+    right: 0%;
     width: 300px;
     background: white;
     transition: all 1s ease;
     /* display: none; */
     /* visibility: hidden; */
 }
-.settingbulb.active-setting{
+
+.settingpump.active-setting {
     top: 60px;
     right: 0%;
-    
+    background: #A2D690;
     max-height: 100vh;
+    z-index: 1;
 }
-.automod__close{
+
+.automod__close {
     background-color: transparent;
     border: none;
     cursor: pointer;
 }
+
 /* ----------- */
-.settingbulb .automode button:hover{
+.settingpump .automode button:hover {
     opacity: 0.5;
     background: green;
     transition: all 0.5s ease;
     color: white;
 }
-btn.automode__save{
+
+btn.automode__save {
     border: none;
     background-color: red;
+}
+
+
+.btn-setting {
+    border: none;
+    border-radius: 10px;
+    transition: all 0.5s ease;
+}
+
+.btn-setting:hover {
+    opacity: 0.8;
+    background-color: #334B35;
+    color: white;
 }

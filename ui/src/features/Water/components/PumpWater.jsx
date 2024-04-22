@@ -42,11 +42,11 @@ const PumpWater = ({ pump }) => {
             </button>
           </div>
         </div>
-        <div className="pump_state">
+        <div className="Pump_state">
           {active ? (
-            <i class="bi bi-waterpump"></i>
+            <i class="bi bi-droplet"></i>
           ) : (
-            <i class="bi bi-waterpump-off"></i>
+            <i class="bi bi-droplet-fill"></i>
           )}
         </div>
         <Switch onChange={ChangePump} checked={active} />

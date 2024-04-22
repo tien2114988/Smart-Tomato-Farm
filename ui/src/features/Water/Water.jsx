@@ -8,10 +8,10 @@ const areas = [
     id: 1,
     name: "Khu A",
   },
-  // {
-  //   id: 2,
-  //   name: "Khu B",
-  // },
+  {
+    id: 2,
+    name: "Khu B",
+  },
 ];
 const Water = () => {
   const [chooseArea, setChooseArea] = useState(areas[0]);

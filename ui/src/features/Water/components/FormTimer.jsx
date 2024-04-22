@@ -4,9 +4,8 @@ const FormTimer = () => {
   return (
     <div>
       <form action="" className="d-flex flex-column gap-2">
-        <label>Bắt đầu từ</label>
-        <DesktopTimePicker defaultValue={dayjs("2022-04-17T15:30")} />
-        <label>Kết thúc lúc</label>
+        <label>Tưới lúc:</label>
+        <DesktopTimePicker defaultValue={dayjs("2022-04-17T5:30")} />
         <DesktopTimePicker defaultValue={dayjs("2022-04-17T15:30")} />
         <button className="automode__save border">Lưu</button>
       </form>

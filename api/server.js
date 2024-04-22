@@ -1,47 +1,30 @@
 const express = require("express");
-const logger = require("morgan");
-const mongoose = require("mongoose");
-const connectDB = require("./app/config/db.config");
-const bodyPraser = require('body-parser')
-const cors = require('cors')
-const app = express();
+const { init: loaders } = require("./app/loaders/index.js");
+const dotenv = require("dotenv");
 
-const manageRoute = require("./app/routes/manage.route");
-const lightRoute = require("./app/routes/light.route");
-//connect mongodb cloud
-connectDB;
+dotenv.config();
 
-// middleware
-app.use(logger("dev"));
-app.use(bodyPraser.json())
-app.use(cors())
-// routes
+class Server {
+  constructor() {
+    if (Server.instance) {
+      return Server.instance;
+    }
+    this.app = express();
+    Server.instance = this;
+  }
+  async startServer() {
+    await loaders({ expressApp: this.app });
+    const port = process.env.PORT || "3001";
+    this.app.listen(port, (err) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      console.log(`App start to listen at http://localhost:${port}`);
+    });
+  }
+}
 
-app.use("/api/manage", manageRoute);
-app.use("/api/light", lightRoute);
+const serverInstance = new Server();
 
-//catch 404 error
-app.use((req, res, next) => {
-  const err = new Error("Not Found");
-  err.status = 404;
-  next(err);
-});
-
-// error handler
-app.use(() => {
-  const error = app.get("env") === "development" ? err : {};
-  const status = err.status || 500;
-
-  // response to client
-  return res.status(status).json({
-    error: {
-      message: error.message,
-    },
-  });
-});
-
-// start server
-const port = process.env.PORT || "3001";
-app.listen(port, () => {
-  console.log(`App start to listen at http://localhost:${port}`);
-});
+serverInstance.startServer();

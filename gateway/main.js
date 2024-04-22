@@ -1,34 +1,17 @@
-var mqtt = require('mqtt')
+const express = require("express");
+const app = express();
+const port = 3000;
 
-var options = {
-    host: 'c73bd1c56f45418d8508c933ca205712.s1.eu.hivemq.cloud',
-    port: 8883,
-    protocol: 'mqtts',
-    username: 'ptho1504',
-    password: 'Ptho1504'
-}
+const publisherRouter = require("./routes/publisher");
+const subscriberRouter = require("./routes/subcriber");
 
-// initialize the MQTT client
-var client = mqtt.connect(options);
-
-// setup the callbacks
-client.on('connect', function () {
-    console.log('Connected');
+app.get("/", (req, res) => {
+  res.send("Hello World");
 });
 
-client.on('error', function (error) {
-    console.log(error);
+app.use("/subcriber", subscriberRouter);
+app.use("/publisher", publisherRouter);
+
+app.listen(port, () => {
+  console.log(`Listening on ${port}`);
 });
-
-client.on('message', function (topic, message) {
-    // called each time a message is received
-    console.log('Received message:', topic, message.toString());
-});
-
-// subscribe to topic 'my/test/topic'
-client.subscribe('Temp');
-
-
-// publish message 'Hello' to topic 'my/test/topic'
-// client.publish('my/test/topic', 'Hello');
-client.publish('viet_hcmut/feeds/khuvuc1.led1', 'Hello 111');

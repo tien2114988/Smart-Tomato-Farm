@@ -1,16 +1,16 @@
 /* --------------- */
-.Bulb {
+.Pump {
     width: 25%;
     cursor: pointer;
     border: 1px solid #f0f0f0;
     border-radius: 15px;
 }
 
-.bulb_state i {
+.Pump_state i {
     font-size: 8rem;
 }
 
-.Bulb:hover {
+.Pump:hover {
     opacity: 0.8;
 
     border: 2px solid #53b45b;

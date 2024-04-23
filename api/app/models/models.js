@@ -42,16 +42,9 @@ const AreaSchema = new mongoose.Schema({
 });
 
 const WateringTimerSchema = new mongoose.Schema({
-  start_time: String,
-  duration: Number,
-  monday: Boolean,
-  tuesday: Boolean,
-  wednesday: Boolean,
-  thursday: Boolean,
-  friday: Boolean,
-  saturday: Boolean,
-  sunday: Boolean,
-  area_id: Number,
+  on_time: String,
+  off_time: String,
+  pump_id: { type: String },
 });
 
 const WaterPumpSchema = new mongoose.Schema({

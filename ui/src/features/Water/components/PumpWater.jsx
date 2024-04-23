@@ -1,35 +1,60 @@
 import React, { useState } from "react";
 import "./PumpWater.css";
 import Switch from "react-switch";
+import axios from "axios";
+import SettingWaterPump from "./SettingWaterPump";
+const PumpWater = ({ pump }) => {
+  const [active, setActive] = useState(pump.status);
 
-const PumpWater = ({ name, state }) => {
-  const [watered, setWatered] = useState(state);
+  const [setting, setSetting] = useState(false);
+  const ChangePump = async () => {
+    setActive(!active);
+    try {
+      await axios
+        .put("http://localhost:3001/api/water/pumps/", { pump_id: pump._id })
+        .then((res) => {})
+        .catch((err) => console.log(err));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  // console.log(setting);
+
   return (
     <>
       <div
-        className={`Bulb border p-2 w-30`}
+        className={`Pump py-4 d-flex flex-column align-items-center ${
+          active ? "" : "disable"
+        }`}
       >
-        <div
-          className={`d-flex flex-column align-items-center flex-shrink-1 border rounded-3 py-2 px-2 ${
-            watered ? "" : "disable"
-          }`}
-        >
-          <div className="p0 h4">{name}</div>
-          <div className="bulb_state">
-            {watered ? (
-              // <i class="bi bi-lightbulb"></i>
-              <i class="bi bi-fuel-pump"></i>
-            ) : (
-              <i class="bi bi-fuel-pump"></i>
-            )}
+        <div className="d-flex flex-row align-items-center justify-content-around gap-5">
+          <div className="m-0 h4">{pump.name}</div>
+          <div className="setting">
+            <button
+              className="btn-setting h4 px-2 m-0"
+              onClick={() => {
+                if (active) {
+                  setSetting(!setting);
+                }
+              }}
+            >
+              <i class="bi bi-gear w-100"></i>
+            </button>
           </div>
-          <Switch
-            onChange={() => {
-              setWatered(!watered);
-            }}
-            checked={watered}
-          />
         </div>
+        <div className="Pump_state">
+          {active ? (
+            <i class="bi bi-droplet"></i>
+          ) : (
+            <i class="bi bi-droplet-fill"></i>
+          )}
+        </div>
+        <Switch onChange={ChangePump} checked={active} />
+        <SettingWaterPump
+          pump={pump}
+          setting={setting}
+          handleSetting={() => setSetting(!setting)}
+        />
       </div>
     </>
   );

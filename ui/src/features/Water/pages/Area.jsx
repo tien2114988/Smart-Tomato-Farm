@@ -1,29 +1,28 @@
 import "./Area.css";
 import PumpWater from "../components/PumpWater";
-const pumpswater = [
-  {
-    id: 1,
-    name: "Máy bơm 1",
-    state: true,
-  },
-  {
-    id: 2,
-    name: "Máy bơm 2",
-    state: false,
-  },
-  // {
-  //   id: 3,
-  //   name: "Đèn 3",
-  //   state: true,
-  // },
-];
+import { useState, useEffect } from "react";
+import axios from "axios";
+
 const Area = ({ area }) => {
-  //   console.log(area);
+  const [pumps, setPumps] = useState([]);
+  // console.log(area._id);
+  // const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3001/api/water/pumps/${area._id}`)
+      .then((res) => {
+        // console.log(res);
+        setPumps(res.data);
+        // setLoading(false);
+      })
+      .catch((err) => console.log(err));
+  }, []);
   return (
-    <div className="content px-4 d-flex flex-row gap-5 flex-wrap justify-content-center align-item-center">
-      {pumpswater.map((bulb) => (
-        <PumpWater key={bulb.id} name={bulb.name} state={bulb.state} />
+    <div className="content px-4 d-flex flex-row gap-2 flex-wrap justify-content-around" >
+      {pumps.map((pump) => (
+        <PumpWater key={pump._id} pump={pump} />
       ))}
+      
     </div>
   );
 };

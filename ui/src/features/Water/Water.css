@@ -1,4 +1,4 @@
-.Light {
+.Pump {
     border-radius: 10px;
 }
 .tabs{
@@ -27,16 +27,6 @@
 .area:hover{
     opacity: 0.8;
     border-radius: 10px;
-    background-color: #334B35;
-    color: white;
-}
-.btn-setting {
-    border: none;
-    border-radius: 10px;
-    transition: all 0.5s ease;
-}
-.btn-setting:hover{
-    opacity: 0.8;
     background-color: #334B35;
     color: white;
 }

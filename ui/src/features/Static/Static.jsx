@@ -5,7 +5,7 @@ import PieChart from "./components/PieChart";
 //import { UserData } from "./Data";
 import "./Static.css";
 import axios from "axios";
-
+import moment from "moment";
 
 
 function Static() {
@@ -19,7 +19,8 @@ function Static() {
     const fetchData = async () => {
       try {
         const response = await axios.get("http://localhost:3001/api/analysis/home"); // Thay đổi đường dẫn tương ứng với API của bạn
-        const userData = response.data.slice(-10);
+        const userData = response.data;//for pie chart
+        const userData1 = response.data.slice(-10);//for line chart
         const updatePieData1 = {
           labels: ['low', 'medium', 'high'],
           datasets: [
@@ -77,32 +78,32 @@ function Static() {
           ]
         };
         const formattedChartData = {
-          labels: userData.map((data) => data.date),
+          labels: userData1.map((data) => moment(data.date).utcOffset('+00:00').utcOffset('+00:07').format()),
           datasets: [
             {
               label: "Temperature",
-              data: userData.map((data) => data.temperature),
+              data: userData1.map((data) => data.temperature),
               backgroundColor: "#FF3030",
               borderColor: "#FF3030",
               borderWidth: 2,
             },
             {
               label: "Air Humidity",
-              data: userData.map((data) => data.air_humidity),
+              data: userData1.map((data) => data.air_humidity),
               backgroundColor: "#064FF0",
               borderColor: "#064FF0",
               borderWidth: 2,
             },
             {
               label: "Soil Moisture",
-              data: userData.map((data) => data.soil_moisture),
+              data: userData1.map((data) => data.soil_moisture),
               backgroundColor: "#65d459",
               borderColor: "#65d459",
               borderWidth: 2,
             },
             {
               label: "Light",
-              data: userData.map((data) => data.light),
+              data: userData1.map((data) => data.light),
               backgroundColor: "#fafa1b",
               borderColor: "#fafa1b",
               borderWidth: 2,
@@ -121,7 +122,7 @@ function Static() {
     };
 
     fetchData();
-    const interval = setInterval(fetchData, 20000); // Gửi yêu cầu cập nhật mỗi 10 giây
+    const interval = setInterval(fetchData, 25000); // Gửi yêu cầu cập nhật mỗi 10 giây
 
     return () => clearInterval(interval); 
   }, []); // Chỉ gửi yêu cầu khi component được tạo ra (mount)

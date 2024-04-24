@@ -58,7 +58,7 @@ const home = async (req,res) => {
     }
 }
 
-setInterval(storeData, 20000)
+setInterval(storeData, 25000)
 module.exports = {
     home
 }

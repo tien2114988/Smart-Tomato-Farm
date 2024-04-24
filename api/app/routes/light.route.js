@@ -1,20 +1,19 @@
-const express = require('express')
+const express = require("express");
+const { container, setup } = require("../loaders/di.js");
 
-const lightController = require('../controllers/light.controller')
-const router = express.Router()
+setup();
+const router = express.Router();
+const lightController = container.resolve("lightController");
+const areaController = container.resolve("areaController")
 
-router.get('/', lightController.getAllArea)
-router.get('/bulbs/:id', lightController.getBulbFromArea)
-router.put('/bulbs/:id', lightController.updateLightById)
-router.put('/bulbs', lightController.changeStateBulb)
-router.get('/getbulbs', lightController.getBulbFromAda)
-// router.post('/bulbs', lightController.createBulbFromArea)
-// router.post('/', lightController.createArea)
-router.get('/getApi', lightController.index)
-
-
-
-
+router.get("/", areaController.getAll);
+router.get("/bulb/:id", lightController.getLightById);
+router.get("/bulbs/:id", lightController.getLightByAreaId);
+router.put("/bulbs", lightController.changeStateLight)
+router.put("/bulbs/setting", lightController.changeAuto)
+router.get("/bulbs/setting/:id", lightController.getTimer)
+router.put("/bulbs/setting/:id", lightController.updateTimer)
+router.put("/bulbs/auto", lightController.changeLightOn)
 
 
-module.exports = router
+module.exports = router;

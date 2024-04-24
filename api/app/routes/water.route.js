@@ -21,7 +21,7 @@ const { container, setup } = require("../loaders/di.js");
 setup();
 const router = express.Router();
 const waterController = container.resolve("waterController");
-router.get("/all", waterController.getAll);
+router.get('/all', waterController.getAll);
 
 
 module.exports = router;

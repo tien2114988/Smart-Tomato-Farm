@@ -1,4 +1,4 @@
-const { Area, Light } = require("../models/models");
+const { Area, Light, LightTimer } = require("../models/models");
 const axios = require("axios");
 class LightRepository {
   constructor({ db }) {
@@ -15,7 +15,8 @@ class LightRepository {
 
   async findLightById(id) {
     try {
-      const LightRecord = await Light.findById({ id: id });
+      const LightRecord = await Light.findById({ _id: id });
+      // console.log(LightRecord)
       return LightRecord;
     } catch (error) {
       console.log(error);
@@ -23,21 +24,96 @@ class LightRepository {
   }
 
   async FindByIdArea(area_id) {
-    const LightRecord = await Light.findById({ area_id: area_id });
-    return LightRecord;
+    try {
+      const LightRecord = await Light.find({ area_id: area_id });
+      return LightRecord;
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  async update(bulb_id, data) {
+  async update(bulb_id) {
     try {
-      const LightRecord = await Light.findById({ id: bulb_id });
-      const res = this.createRequest(LightRecord.ada_id, data);
-      if (!res) {
-        res.status(500).json({
-          message: "Not update light",
+      const LightRecord = await Light.findById({ _id: bulb_id });
+      LightRecord.status = !LightRecord.status;
+      const data = LightRecord.status === true ? "1" : "0";
+      // console.log("Repo", LightRecord, " | ", data, " | ", LightRecord.ada_id);
+      await this.createRequest(LightRecord.ada_id, data);
+      await LightRecord.save();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async updateMode(bulb_id, mode, status) {
+    try {
+      const LightRecord = await Light.findById({ _id: bulb_id });
+      if (mode == "sensor") {
+        LightRecord.is_applied_sensor = status;
+        LightRecord.is_applied_timer = false;
+      } else if (mode == "timer") {
+        LightRecord.is_applied_timer = status;
+        LightRecord.is_applied_sensor = false;
+      } else if (mode == "both") {
+        LightRecord.is_applied_timer = status;
+        LightRecord.is_applied_sensor = status;
+      }
+      return await LightRecord.save();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async updateMany(bulb_id, action, status) {
+    try {
+      if (action === "one") {
+        const LightRecord = await Light.findOne({ _id: bulb_id });
+        LightRecord.status = status === "on" ? true : false;
+        // var data = status === true ? "1" : "0";
+        await this.createRequest(
+          LightRecord.ada_id,
+          status === "on" ? "1" : "0"
+        );
+        await LightRecord.save();
+      } else if (action === "many") {
+        const LightRecord = await Light.findById({ _id: bulb_id });
+        const LightRecords = await Light.find({
+          area_id: LightRecord.area_id,
+        });
+        const data = status === "on" ? "1" : "0";
+        LightRecords.map((f) => {
+          f.status = LightRecord.status = status === "on" ? true : false;
+          this.createRequest(f.ada_id, data);
+          f.save();
         });
       }
-      await LightRecord.save();
-      return res.status(200).json(LightRecord);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async getTimer(bulb_id) {
+    try {
+      console.log("repo", bulb_id);
+      const timeSchedule = await LightTimer.findOne({ light_id: bulb_id });
+      return timeSchedule;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async updateTimer(bulb_id, ontime, offtime) {
+    try {
+      console.log("repo", bulb_id);
+      const timeSchedule = await LightTimer.findOneAndUpdate(
+        { light_id: bulb_id },
+        {
+          on_time: ontime,
+          off_time: offtime,
+        },
+        { upsert: true, new: true }
+      );
+      return timeSchedule;
     } catch (error) {
       console.log(error);
     }
@@ -57,14 +133,12 @@ class LightRepository {
           }
         )
         .then((res) => {
-          console.log(res);
+          // console.log(res);
+          return res;
         })
         .catch((err) => {
           console.log(err);
         });
-      if (res.ok) {
-        return res;
-      }
     } catch (error) {
       console.log(error);
     }

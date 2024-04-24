@@ -3,6 +3,9 @@ const mongooseLoader = require("./mongoose.js");
 const LightController = require("../controllers/LightController.js");
 const LightService = require("../services/LightService.js");
 const LightRepository = require("../repo/LightRepository.js");
+const AreaController = require("../controllers/AreaController.js");
+const AreaService = require("../services/AreaService.js");
+const AreaRepository = require("../repo/AreaRepository.js");
 
 const ManageController = require("../controllers/manage.controller.js");
 const ManageService = require("../services/ManageService.js");
@@ -21,6 +24,10 @@ async function setup(mongooseLoader) {
     lightController: awilix.asClass(LightController),
     lightService: awilix.asClass(LightService),
     lightRepository: awilix.asClass(LightRepository),
+    
+    areaController: awilix.asClass(AreaController),
+    areaService: awilix.asClass(AreaService),
+    areaRepository: awilix.asClass(AreaRepository),
 
     waterController: awilix.asClass(WaterController),
     waterService: awilix.asClass(WaterService),

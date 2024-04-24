@@ -19,7 +19,7 @@ function Static() {
     const fetchData = async () => {
       try {
         const response = await axios.get("http://localhost:3001/api/analysis/home"); // Thay đổi đường dẫn tương ứng với API của bạn
-        const userData = response.data;
+        const userData = response.data.slice(-10);
         const updatePieData1 = {
           labels: ['low', 'medium', 'high'],
           datasets: [
@@ -121,7 +121,7 @@ function Static() {
     };
 
     fetchData();
-    const interval = setInterval(fetchData, 10000); // Gửi yêu cầu cập nhật mỗi 10 giây
+    const interval = setInterval(fetchData, 20000); // Gửi yêu cầu cập nhật mỗi 10 giây
 
     return () => clearInterval(interval); 
   }, []); // Chỉ gửi yêu cầu khi component được tạo ra (mount)

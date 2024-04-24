@@ -3,6 +3,7 @@ const mongooseLoader = require("./mongoose.js");
 const LightController = require("../controllers/LightController.js");
 const LightService = require("../services/LightService.js");
 const LightRepository = require("../repo/LightRepository.js");
+
 const AreaController = require("../controllers/AreaController.js");
 const AreaService = require("../services/AreaService.js");
 const AreaRepository = require("../repo/AreaRepository.js");

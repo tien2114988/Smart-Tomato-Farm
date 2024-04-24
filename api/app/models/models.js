@@ -42,8 +42,8 @@ const AreaSchema = new mongoose.Schema({
 });
 
 const WateringTimerSchema = new mongoose.Schema({
-  on_time: String,
-  off_time: String,
+  on_time_1: String,
+  on_time_2: String,
   pump_id: { type: String },
 });
 

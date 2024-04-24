@@ -1,4 +1,4 @@
-const { Area, Light } = require("../models/models");
+const { Area, Light, WaterPump } = require("../models/models");
 const axios = require("axios");
 class AreaRepository {
   constructor({ db }) {

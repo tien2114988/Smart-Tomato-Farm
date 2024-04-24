@@ -17,8 +17,8 @@ const SettingWaterPump = ({ pump, setting, handleSetting }) => {
   const [sensor, setSensor] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  const [startTime, setStartTime] = useState(null);
-  const [endTime, setEndTime] = useState(null);
+  const [startTime1, setStartTime1] = useState(null);
+  const [startTime2, setStartTime2] = useState(null);
 
   const handleClick = (isTimer) => {
     if (isTimer) {
@@ -59,10 +59,10 @@ const SettingWaterPump = ({ pump, setting, handleSetting }) => {
           </button>
           {timer ? (
             <FormTimer
-              startTime={startTime}
-              setStartTime={setStartTime}
-              endTime={endTime}
-              setEndTime={setEndTime}
+              startTime1={startTime1}
+              setStartTime1={setStartTime1}
+              startTime2={startTime2}
+              setStartTime2={setStartTime2}
               pump_id={pump._id}
             />
           ) : (

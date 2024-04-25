@@ -279,6 +279,7 @@ const triggerPump = async (data) => {
             }
         }
 
+
         if((status == -1 || status == 1) && buzzer == '0'){
             triggerBuzzer('1');
         }else if(status == 0 && buzzer == '1'){

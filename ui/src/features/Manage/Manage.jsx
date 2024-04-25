@@ -281,8 +281,6 @@ const triggerPump = async (data) => {
 
         
 
-        
-
         if(status == -1){
             var text = `${cur_key} dang o muc thap`;
             if(text != lcd){

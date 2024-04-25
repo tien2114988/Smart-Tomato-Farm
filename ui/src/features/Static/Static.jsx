@@ -21,15 +21,25 @@ function Static() {
         const response = await axios.get("http://localhost:3001/api/analysis/home"); // Thay đổi đường dẫn tương ứng với API của bạn
         const userData = response.data;//for pie chart
         const userData1 = response.data.slice(-10);//for line chart
+
+        const today = new Date();
+        const startOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+        const endOfDay = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
+
+        const userDataToday = userData.filter(data => {
+          const dataDate = new Date(data.date);
+          return dataDate >= startOfDay && dataDate < endOfDay;
+        });
+
         const updatePieData1 = {
           labels: ['low', 'medium', 'high'],
           datasets: [
             {
               label: "Light Level",
               data: [
-                userData.filter(data => data.light < 40).length,
-                userData.filter(data => data.light >= 40 && data.light <= 90).length,
-                userData.filter(data => data.light > 90).length
+                userDataToday.filter(data => data.light < 40).length,
+                userDataToday.filter(data => data.light >= 40 && data.light <= 90).length,
+                userDataToday.filter(data => data.light > 90).length
               ],
               backgroundColor: ['yellow', 'green', 'red'] // Màu tương ứng với các mức
             }
@@ -41,9 +51,9 @@ function Static() {
             {
               label: "temp Level",
               data: [
-                userData.filter(data => data.temperature < 20).length,
-                userData.filter(data => data.temperature >= 20 && data.temperature <= 45).length,
-                userData.filter(data => data.temperature > 45).length
+                userDataToday.filter(data => data.temperature < 20).length,
+                userDataToday.filter(data => data.temperature >= 20 && data.temperature <= 45).length,
+                userDataToday.filter(data => data.temperature > 45).length
               ],
               backgroundColor: ['yellow', 'green', 'red'] // Màu tương ứng với các mức
             }
@@ -55,9 +65,9 @@ function Static() {
             {
               label: "soil Level",
               data: [
-                userData.filter(data => data.soil_moisture < 60).length,
-                userData.filter(data => data.soil_moisture >= 60 && data.soil_moisture <= 80).length,
-                userData.filter(data => data.soil_moisture > 80).length
+                userDataToday.filter(data => data.soil_moisture < 60).length,
+                userDataToday.filter(data => data.soil_moisture >= 60 && data.soil_moisture <= 80).length,
+                userDataToday.filter(data => data.soil_moisture > 80).length
               ],
               backgroundColor: ['yellow', 'green', 'red'] // Màu tương ứng với các mức
             }
@@ -69,9 +79,9 @@ function Static() {
             {
               label: "air Level",
               data: [
-                userData.filter(data => data.air_humidity < 50).length,
-                userData.filter(data => data.air_humidity >= 50 && data.air_humidity <= 70).length,
-                userData.filter(data => data.air_humidity > 70).length
+                userDataToday.filter(data => data.air_humidity < 50).length,
+                userDataToday.filter(data => data.air_humidity >= 50 && data.air_humidity <= 70).length,
+                userDataToday.filter(data => data.air_humidity > 70).length
               ],
               backgroundColor: ['yellow', 'green', 'red'] // Màu tương ứng với các mức
             }

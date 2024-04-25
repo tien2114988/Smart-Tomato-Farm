@@ -78,7 +78,7 @@ function Static() {
           ]
         };
         const formattedChartData = {
-          labels: userData1.map((data) => moment(data.date).utcOffset('+00:00').utcOffset('+00:07').format()),
+          labels: userData1.map((data) => moment(data.date).utcOffset('+00:00').utcOffset('+07:00').format()),
           datasets: [
             {
               label: "Temperature",

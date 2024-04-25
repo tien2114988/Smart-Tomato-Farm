@@ -46,15 +46,52 @@ function Manage(props) {
                 },
               }
             )
-            // .then((res) => {
-            //   console.log(res);
-            //   // console.log(lighten);
-            // })
-            // .catch((err) => {
-            //   console.log(err);
-            // });
-
     }
+
+    const triggerLed1 = async (data) => {
+        await axios
+          .post(
+            `https://io.adafruit.com/api/v2/viet_hcmut/feeds/khuvuc1.led1/data/`,
+            { value: data },
+            {
+              headers: {
+                "Content-Type": "application/json",
+                "X-AIO-Key": "aio_qliQ64LT5XQdvAkPGdSm1Cqo0Xqz",
+              },
+            }
+          )
+  }
+
+  const triggerLed2 = async (data) => {
+    await axios
+      .post(
+        `https://io.adafruit.com/api/v2/viet_hcmut/feeds/khuvuc1.led2/data/`,
+        { value: data },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "X-AIO-Key": "aio_qliQ64LT5XQdvAkPGdSm1Cqo0Xqz",
+          },
+        }
+      )
+}
+
+const triggerPump = async (data) => {
+    await axios
+      .post(
+        `https://io.adafruit.com/api/v2/viet_hcmut/feeds/khuvuc1.maybom/data/`,
+        { value: data },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "X-AIO-Key": "aio_qliQ64LT5XQdvAkPGdSm1Cqo0Xqz",
+          },
+        }
+      )
+}
+
+
+
 
     const triggerLCD = async (data) => {
         await axios
@@ -130,7 +167,9 @@ function Manage(props) {
     
     const fetchDevices = async()=>{
         var datas = await deviceApi.getAll();
-        var buzzer, lcd;
+        var buzzer, lcd, led1, led2, pump;
+        var soilStatus, lightStatus;
+        
         datas = datas.map((cur)=> {
             if(cur.name=='data_doamkk'){
                 cur.displayName = 'Độ ẩm không khí';
@@ -147,15 +186,23 @@ function Manage(props) {
                 cur.icon = 'bi bi-brightness-high';
                 cur.status = calculateStatus(cur.last_value, light[0]);
                 cur.unit = '%';
+                lightStatus = cur.status
             }else if(cur.name=='data_doamdat'){
                 cur.displayName = 'Độ ẩm đất';
                 cur.icon = 'bi bi-moisture';
                 cur.status = calculateStatus(cur.last_value, soil[0]);
                 cur.unit = '%';
+                soilStatus = cur.status;
             }else if(cur.name=='buzzer'){
                 buzzer = cur.last_value;
             }else if(cur.name=='LCD'){
                 lcd = cur.last_value;
+            }else if(cur.name=='led1'){
+                led1 = cur.last_value;
+            }else if(cur.name=='led2'){
+                led2 = cur.last_value;
+            }else if(cur.name == 'maybom'){
+                pump = cur.last_value;
             }
 
             status_list[`${cur.displayName}`] = cur.status;
@@ -191,7 +238,7 @@ function Manage(props) {
                 text: `Nguy hiểm: ${cur_key} đang ở mức cao`
             }) 
         }
-        // triggerBuzzer();
+
         if(cur_key=='Cường độ ánh sáng'){
             cur_key = 'Cuong do anh sang';
         }else if(cur_key=='Nhiệt độ'){
@@ -203,6 +250,34 @@ function Manage(props) {
         }
 
         var text;
+
+        if(soilStatus == -1 && pump == '0'){
+            triggerPump('1');
+        }else if(soilStatus > -1 && pump == '1'){
+            triggerPump('0');
+        }
+
+        if(lightStatus == -1){
+            if(led1 == '0'){
+                triggerLed1('1')
+            }
+            if(led2=='0'){
+                triggerLed2('1')
+            }
+        }else if(lightStatus == 0){
+            if(led1=='0' && led2=='0'){
+                triggerLed1('1')
+            }else if(led1=='1' && led2=='1'){
+                triggerLed2('0')
+            }
+        }else{
+            if(led1 == '1'){
+                triggerLed1('0')
+            }
+            if(led2=='1'){
+                triggerLed2('0')
+            }
+        }
 
         if((status == -1 || status == 1) && buzzer == '0'){
             triggerBuzzer('1');

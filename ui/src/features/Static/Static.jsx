@@ -27,9 +27,9 @@ function Static() {
             {
               label: "Light Level",
               data: [
-                userData.filter(data => data.light < 60).length,
-                userData.filter(data => data.light >= 60 && data.light < 80).length,
-                userData.filter(data => data.light >= 80).length
+                userData.filter(data => data.light < 40).length,
+                userData.filter(data => data.light >= 40 && data.light <= 90).length,
+                userData.filter(data => data.light > 90).length
               ],
               backgroundColor: ['yellow', 'green', 'red'] // Màu tương ứng với các mức
             }
@@ -41,9 +41,9 @@ function Static() {
             {
               label: "temp Level",
               data: [
-                userData.filter(data => data.temperature < 40).length,
-                userData.filter(data => data.temperature >= 40 && data.temperature < 60).length,
-                userData.filter(data => data.temperature >= 60).length
+                userData.filter(data => data.temperature < 20).length,
+                userData.filter(data => data.temperature >= 20 && data.temperature <= 45).length,
+                userData.filter(data => data.temperature > 45).length
               ],
               backgroundColor: ['yellow', 'green', 'red'] // Màu tương ứng với các mức
             }
@@ -56,8 +56,8 @@ function Static() {
               label: "soil Level",
               data: [
                 userData.filter(data => data.soil_moisture < 60).length,
-                userData.filter(data => data.soil_moisture >= 60 && data.soil_moisture < 80).length,
-                userData.filter(data => data.soil_moisture >= 80).length
+                userData.filter(data => data.soil_moisture >= 60 && data.soil_moisture <= 80).length,
+                userData.filter(data => data.soil_moisture > 80).length
               ],
               backgroundColor: ['yellow', 'green', 'red'] // Màu tương ứng với các mức
             }
@@ -70,8 +70,8 @@ function Static() {
               label: "air Level",
               data: [
                 userData.filter(data => data.air_humidity < 50).length,
-                userData.filter(data => data.air_humidity >= 50 && data.air_humidity < 70).length,
-                userData.filter(data => data.air_humidity >= 70).length
+                userData.filter(data => data.air_humidity >= 50 && data.air_humidity <= 70).length,
+                userData.filter(data => data.air_humidity > 70).length
               ],
               backgroundColor: ['yellow', 'green', 'red'] // Màu tương ứng với các mức
             }

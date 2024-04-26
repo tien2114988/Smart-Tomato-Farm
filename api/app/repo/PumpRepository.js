@@ -107,8 +107,10 @@ class PumpRepository {
       const timeSchedule = await WateringTimer.findOneAndUpdate(
         { WaterPump_id: pump_id },
         {
-          on_time: ontime,
-          off_time: offtime,
+          on_time_1: ontime1,
+          on_time_2: ontime2,
+          // on_time: ontime,
+          // off_time: offtime,
         },
         { upsert: true, new: true }
       );

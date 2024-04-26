@@ -1,60 +1,43 @@
 # Smart Tomato Farm
 
-## Name branch
-<pre>
-dev/ui/{feature}
-dev/api/{feature}
-fix/ui/{feature}
-fix/api/{feature}
-</pre>
+## Introduction 
+- The system is built to manage tomato farm
+- Frontend : HTML, CSS (Bootstrap), Javascript (React.JS)
+- Backend : Node.JS (Express.JS), MongoDB, Adafruit
+
+## Feature
+- Monitor temperature, air humidity, light intensity, and soil moisture on the farm
+- Warning when parameters are abnormal
+- Turn lights on and off automatically
+- Displays statistics about farm parameters
+
+
+## Video demo
+- https://www.youtube.com/watch?v=DJZ2aFtfP8U
+
+ ## Member in charge
+ - Nguyễn Đại Tiến : monitor
+ - Nguyễn Trương Phước Thọ : light
+ - Trịnh Khải Toàn : water
+ - Đặng Hà Sang : statistic
+ - Nguyễn Quốc Việt : device
+
 
 ## How to run
 - step 1 : cd api (or ui) 
 - step 2 : npm install
 - step 3 : npm start
 
-## File Structure
-### UI
-<pre>
-src 
-|__api
-   |__adafruit.js
-   |__mongo.js
-   |__deviceApi.js
-   |__areApi.js
-|__components (shared components)
-   |__Header 
-      |__Header.jsx
-      |__Header.css
-|__features 
-   |__Manage
-      |__components (components of a feature)
-      |__pages (pages of a feature)
-      |__Manage.jsx (entry point of a feature)
-App.js
-index.js (entry point of program)
-</pre>
 
-### API
-<pre>
-app 
-|__config 
-   |__db.config.js
-|__controllers 
-   |__manage.controller.js
-|__middleware
-   |__auth.middleware.js
-|__models
-   |__area.model.js
-|__routes
-   |__manage.route.js
-server.js (entry point of program)
-</pre>
+## Overview
+- dashboard
+![image](https://github.com/tien2114988/Shoe-Shop-Management-System/assets/110327876/48b04e2b-2f91-4d86-9e46-f28d32497d28)
+
+- light
+![image](https://github.com/tien2114988/Shoe-Shop-Management-System/assets/110327876/b06c6b30-6ec9-4359-b1a9-931969ae194c)
+
+- statistic
+![image](https://github.com/tien2114988/Shoe-Shop-Management-System/assets/110327876/b8c31770-f136-4d57-9196-967121c326cd)
 
 
- ## Member in charge
- - Nguyễn Đại Tiến : manage (ui, api)
- - Nguyễn Trương Phước Thọ : light (ui, api), water (ui)
- - Trịnh Khải Toàn : header,sidebar (ui) , statistic (ui)
- - Đặng Hà Sang : database (deadline : 23h59 29/3/2024), water (api)
- - Nguyễn Quốc Việt : iot
+

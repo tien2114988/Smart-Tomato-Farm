@@ -16,6 +16,7 @@ const Bulb = ({ bulb }) => {
     appliedTimer: null,
     appliedSensor: null,
   });
+  
   const [lightOne, setLightOne] = useState(null);
   const [lightTwo, setLightTwo] = useState(null);
   const [light, setLight] = useState(null);

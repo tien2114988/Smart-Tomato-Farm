@@ -25,7 +25,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 const FormSensor = ({
-  pump,
+  pumpwater,
   level,
   auto,
   handleSetting,
@@ -37,7 +37,7 @@ const FormSensor = ({
     e.preventDefault();
     await axios
       .put(`http://localhost:3001/api/water/pumps/setting`, {
-        pump_id: pump._id,
+        pumpwater_id: pumpwater._id,
         mode: "sensor",
         status: true,
       })

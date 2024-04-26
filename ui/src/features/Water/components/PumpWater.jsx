@@ -70,12 +70,12 @@ import axios from "axios";
 import SettingWaterPump from "./SettingWaterPump";
 import thresholdApi from "../../../api/thresholdApi";
 
-const PumpWater = ({ pump }) => {
-  const [active, setActive] = useState(pump.status);
+const PumpWater = ({ pumpwater }) => {
+  const [active, setActive] = useState(pumpwater.status);
   const [setting, setSetting] = useState(false);
   const [auto, setAuto] = useState({
-    appliedTimer: pump.is_applied_timer,
-    appliedSensor: pump.is_applied_sensor,
+    appliedTimer: pumpwater.is_applied_timer,
+    appliedSensor: pumpwater.is_applied_sensor,
   });
   const [autoMode, setAutoMode] = useState({
     appliedTimer: null,
@@ -108,7 +108,7 @@ const PumpWater = ({ pump }) => {
 
     try {
       await axios
-        .put("http://localhost:3001/api/water/pumps/", { pump_id: pump._id })
+        .put("http://localhost:3001/api/water/pumps/", { pumpwater_id: pumpwater._id })
         .then((res) => {})
         .catch((err) => console.log(err));
     } catch (error) {
@@ -143,45 +143,12 @@ const PumpWater = ({ pump }) => {
       try {
         await axios
           .put("http://localhost:3001/api/water/pumps/auto", {
-            pump_id: pump._id,
+            pumpwater_id: pumpwater._id,
             action: "many",
             status: "on",
           })
           .then((res) => {
             console.log("Turn on many");
-          })
-          .catch((err) => console.log(err));
-      } catch (error) {
-        console.log(error);
-      }
-    } else if (waterpump >= pump && waterpump < pumpTwo) {
-      try {
-        console.log("Two");
-        await axios
-          .put("http://localhost:3001/api/water/pumps/auto", {
-            pump_id: pump._id,
-            action: "one",
-            status: "on",
-          })
-          .then((res) => {
-            // console.log(res);
-            console.log(`Turn on one ${pump.name}`);
-          })
-          .catch((err) => console.log(err));
-      } catch (error) {
-        console.log(error);
-      }
-    } else if (waterpump >= pumpTwo && waterpump <= 100) {
-      console.log("Three");
-      try {
-        await axios
-          .put("http://localhost:3001/api/water/pumps/auto", {
-            pump_id: pump._id,
-            action: "one",
-            status: "off",
-          })
-          .then((res) => {
-            // console.log(res);
           })
           .catch((err) => console.log(err));
       } catch (error) {
@@ -193,7 +160,7 @@ const PumpWater = ({ pump }) => {
   useEffect(() => {
     const intervalId = setInterval(async () => {
       await axios
-        .get(`http://localhost:3001/api/water/pump/${pump._id}`)
+        .get(`http://localhost:3001/api/water/pump/${pumpwater._id}`)
         .then((res) => {
           // console.log(res.data);
           setActive(res.data.status);
@@ -217,7 +184,7 @@ const PumpWater = ({ pump }) => {
     return () => {
       clearInterval(intervalId);
     };
-  }, [pump, auto.appliedTimer, auto.appliedSensor, waterpump]);
+  }, [pumpwater, auto.appliedTimer, auto.appliedSensor, waterpump]);
   return (
     <>
       <div
@@ -226,7 +193,7 @@ const PumpWater = ({ pump }) => {
         }`}
       >
         <div className="d-flex flex-row align-items-center justify-content-around gap-5">
-          <div className="m-0 h4">{pump.name}</div>
+          <div className="m-0 h4">{pumpwater.name}</div>
           <div className="setting">
             <button
               className="btn-setting h4 px-2 m-0"
@@ -247,7 +214,7 @@ const PumpWater = ({ pump }) => {
         </div>
         <Switch onChange={ChangePump} checked={active} />
         <SettingWaterPump
-          pump={pump}
+          pumpwater={pumpwater}
           setting={setting}
           handleSetting={() => setSetting(!setting)}
           active={active}
